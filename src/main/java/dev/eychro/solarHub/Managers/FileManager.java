@@ -7,7 +7,9 @@ import org.bukkit.plugin.java.JavaPlugin;
 
 import java.io.File;
 import java.io.IOException;
+import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
 
 public class FileManager {
@@ -91,5 +93,17 @@ public class FileManager {
             msg = msg.replace(replacements[i], replacements[i + 1]);
         }
         return msg;
+    }
+
+    public List<String> getMessageList(String path, String... replacements) {
+        List<String> result = new ArrayList<>();
+
+        for (String line : getMessages().getStringList(path)) {
+            for (int i = 0; i + 1 < replacements.length; i += 2) {
+                line = line.replace(replacements[i], replacements[i + 1]);
+            }
+            result.add(color(line));
+        }
+        return result;
     }
 }

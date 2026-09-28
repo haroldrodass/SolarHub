@@ -1,0 +1,52 @@
+#########################################################
+#                                                       #
+#                       Solar Hub                       #
+#                                                       #
+#                        Github:                        #
+#        https://github.com/haroldrodass/SolarHub       #
+#                                                       #
+#########################################################
+
+Prefix: "&6Solar&fHub &8->&f"
+
+No-permission: "&cNo permission to do this."
+OnlyPlayer: "Only players can execute this command"
+Reloaded: "&aPlugin Reloaded"
+
+################################################
+#                                              #
+#                     Redes                    #
+#                                              #
+################################################
+
+Discord:
+  - "&8&m----------------------------------------"
+  - "               &9&lDiscord"
+  - ""
+  - " &7¡Únete a nuestra comunidad para estar al día!"
+  - " &b%link-discord%"
+  - ""
+  - "&8&m----------------------------------------"
+
+Website:
+  - "&8&m----------------------------------------"
+  - "               &6&lWebsite"
+  - ""
+  - " &7¡Visita nuestra página oficial para más información!"
+  - " &b%link-website%"
+  - ""
+  - "&8&m----------------------------------------"
+
+Help:
+  - "&8&m----------------------------------------"
+  - "             &e&lSolar Hub &8| &fHelp"
+  - ""
+  - " &6/spawn &7- Teleport to the main spawn."
+  - " &6/hub &7- Return to the lobby."
+  - " &6/fly &7- Toggle flight mode."
+  - " &6/vanish &7- Hide yourself from other players."
+  - " &6/ping &7- Check your current latency."
+  - " &6/discord &7- Join our community Discord."
+  - " &6/website &7- Visit our official website."
+  - ""
+  - "&8&m----------------------------------------"

@@ -1,0 +1,16 @@
+#########################################################
+#                                                       #
+#                       Solar Hub                       #
+#                                                       #
+#                        Github:                        #
+#        https://github.com/haroldrodass/SolarHub       #
+#                                                       #
+#########################################################
+
+Discord:
+  Enabled: true
+  Link: "https://discord.gg/rnEphVbhn6"
+
+Website:
+  Enabled: true
+  Link: "https://github.com/haroldrodass/SolarHub"
