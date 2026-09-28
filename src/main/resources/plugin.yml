@@ -1,0 +1,8 @@
+name: SolarHub
+version: '${version}'
+
+main: dev.eychro.solarHub.SolarHub
+api-version: '26.3'
+load: POSTWORLD
+
+authors: [ eychro ]
