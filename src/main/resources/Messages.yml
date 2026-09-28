@@ -13,6 +13,10 @@ No-permission: "&cNo permission to do this."
 OnlyPlayer: "Only players can execute this command"
 Reloaded: "&aPlugin Reloaded"
 
+
+DisableBuildMode: "Build Mode Disabled"
+EnableBuildMode: "Build Mode Enabled"
+
 ################################################
 #                                              #
 #                     Redes                    #
