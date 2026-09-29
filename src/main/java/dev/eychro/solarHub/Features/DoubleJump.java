@@ -20,7 +20,9 @@ public class DoubleJump implements Listener {
     @EventHandler
     public void onJoin(PlayerJoinEvent e) {
         Player player = e.getPlayer();
-        if (!plugin.getConfig().getBoolean("DoubleJump")) {return;}
+        if (!plugin.getConfig().getBoolean("DoubleJump.enabled")) {
+            return;
+        }
 
         if (!e.getPlayer().hasPermission("Solar.DoubleJump")) {
             e.getPlayer().sendMessage(plugin.getFiles().getConfig().getString("No-permission"));
@@ -61,11 +63,17 @@ public class DoubleJump implements Listener {
     public void onPlayerMove(PlayerMoveEvent e) {
         Player p = e.getPlayer();
 
-        if (!plugin.getConfig().getBoolean("DoubleJump.enabled")) {return;}
+        if (!plugin.getConfig().getBoolean("DoubleJump.enabled")) {
+            return;
+        }
 
-        if (p.getGameMode() == GameMode.CREATIVE || p.getGameMode() == GameMode.SPECTATOR) {return;}
+        if (p.getGameMode() == GameMode.CREATIVE || p.getGameMode() == GameMode.SPECTATOR) {
+            return;
+        }
 
-        if (!p.hasPermission("Solar.DoubleJump")) {return;}
+        if (!p.hasPermission("Solar.DoubleJump")) {
+            return;
+        }
 
         if (!p.getAllowFlight() && p.getLocation().subtract(0, 0.1, 0).getBlock().getType().isSolid()) {
             p.setAllowFlight(true);

@@ -40,7 +40,11 @@ LaunchPad:
   enabled: true
   block: SLIME_BLOCK
   power: 1
-  height : 2
+  height: 2
+  particle:
+    enabled: true
+    type: "CAMPFIRE_COSY_SMOKE"
+
 
 Spawn:
   Set: true

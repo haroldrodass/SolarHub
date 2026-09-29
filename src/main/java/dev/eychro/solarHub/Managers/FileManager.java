@@ -14,18 +14,20 @@ import java.util.Map;
 
 public class FileManager {
 
+    public static final String CONFIG = "Config.yml";
+    public static final String MESSAGES = "Messages.yml";
     private final JavaPlugin plugin;
-
     private final Map<String, File> files = new HashMap<>();
     private final Map<String, FileConfiguration> configs = new HashMap<>();
-
-    public static final String CONFIG = "config.yml";
-    public static final String MESSAGES = "messages.yml";
 
     public FileManager(JavaPlugin plugin) {
         this.plugin = plugin;
         setup(CONFIG);
         setup(MESSAGES);
+    }
+
+    public static String color(String text) {
+        return ChatColor.translateAlternateColorCodes('&', text);
     }
 
     private void setup(String name) {
@@ -75,10 +77,6 @@ public class FileManager {
     public void reloadAll() {
         reload(CONFIG);
         reload(MESSAGES);
-    }
-
-    public static String color(String text) {
-        return ChatColor.translateAlternateColorCodes('&', text);
     }
 
     public String getMessage(String path) {
