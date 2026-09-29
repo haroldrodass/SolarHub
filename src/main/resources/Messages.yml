@@ -20,6 +20,7 @@ EnableBuildMode: "Build Mode Enabled"
 JoinMessage: "%player% just joined the server."
 
 SpawnSet: "Spawn set at your coordinates"
+No-Spawn: "No Spawn set"
 
 ################################################
 #                                              #
