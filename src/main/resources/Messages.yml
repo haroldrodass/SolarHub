@@ -17,6 +17,10 @@ Reloaded: "&aPlugin Reloaded"
 DisableBuildMode: "Build Mode Disabled"
 EnableBuildMode: "Build Mode Enabled"
 
+JoinMessage: "%player% just joined the server."
+
+SpawnSet: "Spawn set at your coordinates"
+
 ################################################
 #                                              #
 #                     Redes                    #
@@ -40,6 +44,8 @@ Website:
   - " &b%link-website%"
   - ""
   - "&8&m----------------------------------------"
+
+
 
 Help:
   - "&8&m----------------------------------------"

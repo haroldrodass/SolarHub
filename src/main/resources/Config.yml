@@ -14,3 +14,12 @@ Discord:
 Website:
   Enabled: true
   Link: "https://github.com/haroldrodass/SolarHub"
+
+Spawn:
+  Set: true
+  World: "world"
+  X: 0.0
+  Y: 0.0
+  Z: 0.0
+  Yaw: 0.0
+  Pitch: 0.0
