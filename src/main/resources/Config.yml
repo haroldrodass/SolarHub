@@ -36,6 +36,12 @@ DoubleJump:
   power: 0.5
   height: 1.0
 
+LaunchPad:
+  enabled: true
+  block: SLIME_BLOCK
+  power: 1
+  height : 2
+
 Spawn:
   Set: true
   World: "world"

@@ -1,4 +1,4 @@
-package dev.eychro.solarHub.Listeners.World;
+package dev.eychro.solarHub.Listeners.Player;
 
 import org.bukkit.entity.Player;
 import org.bukkit.event.EventHandler;

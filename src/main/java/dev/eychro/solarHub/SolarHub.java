@@ -10,7 +10,7 @@ import dev.eychro.solarHub.Listeners.Player.JoinListener;
 import dev.eychro.solarHub.Listeners.Player.JoinMessage;
 import dev.eychro.solarHub.Listeners.World.BlockInteractions;
 import dev.eychro.solarHub.Listeners.World.ItemProtection;
-import dev.eychro.solarHub.Listeners.World.PlayerProtection;
+import dev.eychro.solarHub.Listeners.Player.PlayerProtection;
 import dev.eychro.solarHub.Managers.FileManager;
 import org.bukkit.event.Listener;
 import org.bukkit.plugin.java.JavaPlugin;
