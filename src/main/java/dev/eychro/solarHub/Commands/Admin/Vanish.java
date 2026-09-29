@@ -28,6 +28,10 @@ public class Vanish implements CommandExecutor, Listener {
     @Override
     public boolean onCommand(@NotNull CommandSender sender, @NotNull Command command, @NotNull String label, String[] args) {
 
+        if (!plugin.getFiles().getConfig().getBoolean("Vanish.enabled")) {
+            return true;
+        }
+
         if (!(sender instanceof Player player)) {
             sender.sendMessage(plugin.getFiles().getMessage("OnlyPlayer"));
             return true;

@@ -42,6 +42,9 @@ Website:
 #                                              #
 ################################################
 
+Vanish:
+  enabled: true
+
 DoubleJump:
   enabled: true
   power: 0.5
