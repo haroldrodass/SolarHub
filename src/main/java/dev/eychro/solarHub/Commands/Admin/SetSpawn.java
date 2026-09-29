@@ -44,6 +44,6 @@ public class SetSpawn implements CommandExecutor {
 
         sender.sendMessage(plugin.getFiles().getMessage("SpawnSet"));
 
-        return false;
+        return true;
     }
 }

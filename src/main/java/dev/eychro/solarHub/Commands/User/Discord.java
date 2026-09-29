@@ -36,6 +36,6 @@ public class Discord implements CommandExecutor {
             sender.sendMessage(line);
         }
 
-        return false;
+        return true;
     }
 }

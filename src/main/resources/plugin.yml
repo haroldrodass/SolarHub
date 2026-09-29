@@ -6,3 +6,33 @@ api-version: '26.3'
 load: POSTWORLD
 
 authors: [ eychro ]
+
+commands:
+  solarhub:
+    description: Comando principal de administración de SolarHub.
+    usage: "§cUso correcto: /solarhub <help|reload>"
+
+  discord:
+    description: Muestra el enlace de Discord.
+    usage: /<command>
+    permission: Solar.Discord
+
+  website:
+    description: Muestra el enlace del sitio web.
+    usage: /<command>
+    permission: Solar.Website
+
+  spawn:
+    description: Teletransporta al jugador al spawn.
+    usage: /<command>
+    permission: Solar.Spawn
+
+  buildmode:
+    description: Activa o desactiva el modo de construcción.
+    usage: /<command>
+    permission: Solar.BuildMode
+
+  setspawn:
+    description: Establece la ubicación del spawn.
+    usage: /<command>
+    permission: Solar.SetSpawn

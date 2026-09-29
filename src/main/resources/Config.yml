@@ -7,6 +7,16 @@
 #                                                       #
 #########################################################
 
+
+
+
+
+################################################
+#                                              #
+#                     Redes                    #
+#                                              #
+################################################
+
 Discord:
   Enabled: true
   Link: "https://discord.gg/rnEphVbhn6"
@@ -14,6 +24,17 @@ Discord:
 Website:
   Enabled: true
   Link: "https://github.com/haroldrodass/SolarHub"
+
+################################################
+#                                              #
+#                  Features                    #
+#                                              #
+################################################
+
+DoubleJump:
+  enabled: true
+  power: 0.5
+  height: 1.0
 
 Spawn:
   Set: true

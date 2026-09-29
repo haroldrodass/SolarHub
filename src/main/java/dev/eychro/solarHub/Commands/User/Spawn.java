@@ -15,7 +15,7 @@ public class Spawn implements CommandExecutor {
     public Spawn(dev.eychro.solarHub.SolarHub plugin) {
         this.plugin = plugin;
     }
-    
+
     @Override
     public boolean onCommand(@NotNull CommandSender sender, @NotNull Command command, @NotNull String s, @NotNull String @NotNull [] strings) {
 
@@ -34,6 +34,6 @@ public class Spawn implements CommandExecutor {
         } else {
             ((Player) sender).teleport(JoinListener.getSpawn(plugin));
         }
-        return false;
+        return true;
     }
 }

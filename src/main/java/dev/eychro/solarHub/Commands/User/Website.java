@@ -25,7 +25,7 @@ public class Website implements CommandExecutor {
             return true;
         }
 
-        if (!sender.hasPermission("Solar.Discord")) {
+        if (!sender.hasPermission("Solar.Website")) {
             sender.sendMessage(plugin.getConfig().getString("Messages.NoPermission"));
             return true;
         }
@@ -36,6 +36,6 @@ public class Website implements CommandExecutor {
             sender.sendMessage(line);
         }
 
-        return false;
+        return true;
     }
 }
