@@ -80,7 +80,7 @@ public class FileManager {
     }
 
     public String getMessage(String path) {
-        String prefix = getMessages().getString("prefix", "");
+        String prefix = getMessages().getString("Prefix", "");
         String msg = getMessages().getString(path, "&cMensaje no encontrado: " + path);
         return color(prefix + msg);
     }

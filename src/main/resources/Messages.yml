@@ -10,16 +10,22 @@
 Prefix: "&6Solar&fHub &8->&f"
 
 No-permission: "&cNo permission to do this."
-OnlyPlayer: "Only players can execute this command"
+OnlyPlayer: "&cOnly players can execute this command"
 Reloaded: "&aPlugin Reloaded"
 
-DisableBuildMode: "Build Mode Disabled"
-EnableBuildMode: "Build Mode Enabled"
+DisableBuildMode: "&cBuild Mode Disabled"
+EnableBuildMode: "&aBuild Mode Enabled"
 
 JoinMessage: "%player% just joined the server."
 
-SpawnSet: "Spawn set at your coordinates"
-No-Spawn: "No Spawn set"
+SpawnSet: "&aSpawn set at your coordinates"
+No-Spawn: "&cNo Spawn set"
+
+FlyEnabled: "&aFly Enabled"
+FlyDisabled: "&cFly Disabled"
+
+Vanished-Disabled: "&cVanish disabled"
+Vanished-Enabled: "&aVanish enabled"
 
 ################################################
 #                                              #

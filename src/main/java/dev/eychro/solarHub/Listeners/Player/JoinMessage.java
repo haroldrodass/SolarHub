@@ -19,6 +19,11 @@ public class JoinMessage implements Listener {
     public void onJoin(PlayerJoinEvent e) {
         Player player = e.getPlayer();
 
+        if (plugin.getVanish().isVanished(player.getUniqueId())) {
+            e.setJoinMessage(null);
+            return;
+        }
+
         if (player.hasPermission("Solar.JoinMessage")) {
             String mensaje = plugin.getFiles().getMessage("JoinMessage");
             if (mensaje != null) {

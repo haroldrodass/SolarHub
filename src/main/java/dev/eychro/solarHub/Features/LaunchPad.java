@@ -1,6 +1,7 @@
 package dev.eychro.solarHub.Features;
 
 import dev.eychro.solarHub.SolarHub;
+import dev.eychro.solarHub.Utils.RegistryUtil;
 import org.bukkit.Material;
 import org.bukkit.Particle;
 import org.bukkit.Sound;
@@ -59,19 +60,31 @@ public class LaunchPad implements Listener {
         double height = config.getDouble("LaunchPad.height", 1.0);
 
         player.setVelocity(player.getLocation().getDirection().multiply(power).setY(height));
-        player.playSound(player.getLocation(), Sound.ENTITY_FIREWORK_ROCKET_LAUNCH, 1.0f, 1.0f);
+
+        String soundName = config.getString("LaunchPad.Sound", "ENTITY_FIREWORK_ROCKET_LAUNCH");
+        Sound sound = RegistryUtil.getSound(soundName);
+
+        if (sound == null && soundName != null && !soundName.isEmpty() && !soundName.equalsIgnoreCase("NONE")) {
+            plugin.getLogger().warning("LaunchPad.Sound '" + soundName + "' no es válido. Usa 'NONE' para desactivarlo.");
+        }
+
+        if (sound != null) {
+            player.playSound(player.getLocation(), sound, 1.0f, 1.0f);
+        }
 
         if (!config.getBoolean("LaunchPad.particle.enabled", false)) {
             return;
         }
 
-        final Particle particle;
-        try {
-            particle = Particle.valueOf(config.getString("LaunchPad.particle.type", "CAMPFIRE_COSY_SMOKE").toUpperCase());
-        } catch (IllegalArgumentException ex) {
-            plugin.getLogger().warning("LaunchPad.particle.type no es una partícula válida.");
+        String particleName = config.getString("LaunchPad.particle.type", "FLAME");
+        final Particle particle = RegistryUtil.getParticle(particleName);
+
+        if (particle == null) {
+            plugin.getLogger().warning("LaunchPad.particle.type '" + particleName + "' no es una partícula válida.");
             return;
         }
+
+        final boolean visibleForEveryone = config.getBoolean("LaunchPad.particle.Visible-For-Everyone", true);
 
         new BukkitRunnable() {
             int tiempoEnAire = 0;
@@ -83,7 +96,11 @@ public class LaunchPad implements Listener {
                     return;
                 }
 
-                player.spawnParticle(particle, player.getLocation().add(0, 0.5, 0), 3, 0.2, 0.2, 0.2, 0.0);
+                if (visibleForEveryone) {
+                    player.getWorld().spawnParticle(particle, player.getLocation().add(0, 0.5, 0), 3, 0.2, 0.2, 0.2, 0.0);
+                } else {
+                    player.spawnParticle(particle, player.getLocation().add(0, 0.5, 0), 3, 0.2, 0.2, 0.2, 0.0);
+                }
 
                 tiempoEnAire++;
 

@@ -7,9 +7,20 @@
 #                                                       #
 #########################################################
 
+################################################
+#                                              #
+#                     Spawn                    #
+#                                              #
+################################################
 
-
-
+Spawn:
+  Set: true
+  World: "world"
+  X: 0.0
+  Y: 0.0
+  Z: 0.0
+  Yaw: 0.0
+  Pitch: 0.0
 
 ################################################
 #                                              #
@@ -34,23 +45,20 @@ Website:
 DoubleJump:
   enabled: true
   power: 0.5
-  height: 10
+  height: 1.5
+  Sound: ENTITY_BAT_TAKEOFF
+  particle:
+    enabled: true
+    type: CLOUD
+    Visible-For-Everyone: true
 
 LaunchPad:
   enabled: true
   block: SLIME_BLOCK
   power: 1.0
   height: 1.0
+  Sound: ENTITY_FIREWORK_ROCKET_LAUNCH
   particle:
     enabled: true
-    type: CAMPFIRE_COSY_SMOKE
-
-
-Spawn:
-  Set: true
-  World: "world"
-  X: 0.0
-  Y: 0.0
-  Z: 0.0
-  Yaw: 0.0
-  Pitch: 0.0
+    type: FLAME
+    Visible-For-Everyone: true

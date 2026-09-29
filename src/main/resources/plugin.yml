@@ -37,6 +37,16 @@ commands:
     usage: /<command>
     permission: Solar.SetSpawn
 
+  fly:
+    description: Vuela por el spawn
+    usage: /<command>
+    permission: Solar.Fly
+    
+  vanish:
+    description: Hazte invisible para todos
+    usage: /<command>
+    permission: Solar.Vanish
+
 permissions:
   Solar.Discord:
     default: op
@@ -55,4 +65,8 @@ permissions:
   Solar.SetSpawn:
     default: op
   Solar.Admin:
+    default: op
+  Solar.Fly:
+    default: op
+  Solar.Vanish:
     default: op
