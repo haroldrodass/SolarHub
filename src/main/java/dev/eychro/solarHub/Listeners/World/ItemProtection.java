@@ -5,10 +5,10 @@ import dev.eychro.solarHub.SolarHub;
 import org.bukkit.entity.Player;
 import org.bukkit.event.EventHandler;
 import org.bukkit.event.Listener;
+import org.bukkit.event.entity.EntityPickupItemEvent;
 import org.bukkit.event.inventory.InventoryClickEvent;
 import org.bukkit.event.inventory.InventoryDragEvent;
 import org.bukkit.event.player.PlayerDropItemEvent;
-import org.bukkit.event.player.PlayerPickupItemEvent;
 import org.bukkit.event.player.PlayerSwapHandItemsEvent;
 
 public class ItemProtection implements Listener {
@@ -22,8 +22,10 @@ public class ItemProtection implements Listener {
     }
 
     @EventHandler
-    public void onItemPickup(PlayerPickupItemEvent e) {
-        Player player = e.getPlayer();
+    public void onItemPickup(EntityPickupItemEvent e) {
+        if (!(e.getEntity() instanceof Player player)) {
+            return;
+        }
         if (buildMode.hasBuildMode(player.getUniqueId())) {
             return;
         }
@@ -32,8 +34,7 @@ public class ItemProtection implements Listener {
 
     @EventHandler
     public void onItemDrop(PlayerDropItemEvent e) {
-        Player player = e.getPlayer();
-        if (buildMode.hasBuildMode(player.getUniqueId())) {
+        if (buildMode.hasBuildMode(e.getPlayer().getUniqueId())) {
             return;
         }
         e.setCancelled(true);
@@ -41,8 +42,7 @@ public class ItemProtection implements Listener {
 
     @EventHandler
     public void onSwap(PlayerSwapHandItemsEvent e) {
-        Player player = e.getPlayer();
-        if (buildMode.hasBuildMode(player.getUniqueId())) {
+        if (buildMode.hasBuildMode(e.getPlayer().getUniqueId())) {
             return;
         }
         e.setCancelled(true);

@@ -36,3 +36,23 @@ commands:
     description: Establece la ubicación del spawn.
     usage: /<command>
     permission: Solar.SetSpawn
+
+permissions:
+  Solar.Discord:
+    default: op
+  Solar.Website:
+    default: op
+  Solar.Spawn:
+    default: op
+  Solar.DoubleJump:
+    default: op
+  Solar.LaunchPad:
+    default: op
+  Solar.JoinMessage:
+    default: op
+  Solar.BuildMode:
+    default: op
+  Solar.SetSpawn:
+    default: op
+  Solar.Admin:
+    default: op

@@ -34,16 +34,16 @@ Website:
 DoubleJump:
   enabled: true
   power: 0.5
-  height: 1.0
+  height: 10
 
 LaunchPad:
   enabled: true
   block: SLIME_BLOCK
-  power: 1
-  height: 2
+  power: 1.0
+  height: 1.0
   particle:
     enabled: true
-    type: "CAMPFIRE_COSY_SMOKE"
+    type: CAMPFIRE_COSY_SMOKE
 
 
 Spawn:

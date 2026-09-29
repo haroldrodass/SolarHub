@@ -20,24 +20,28 @@ public class JoinListener implements Listener {
     public static Location getSpawn(SolarHub plugin) {
         FileConfiguration config = plugin.getFiles().getConfig();
 
-        if (!config.getBoolean("Spawn.Set", true)) {
+        if (!config.getBoolean("Spawn.Set", false)) {
             return null;
         }
 
-        String worldName = config.getString("Spawn.World", "world");
-        World world = Bukkit.getWorld(worldName);
+        World world = Bukkit.getWorld(config.getString("Spawn.World", "world"));
         if (world == null) {
             return null;
         }
 
-        return new Location(world, config.getDouble("Spawn.X"), config.getDouble("Spawn.Y"), config.getDouble("Spawn.Z"), (float) config.getDouble("Spawn.Yaw"), (float) config.getDouble("Spawn.Pitch"));
+        return new Location(world,
+                config.getDouble("Spawn.X"),
+                config.getDouble("Spawn.Y"),
+                config.getDouble("Spawn.Z"),
+                (float) config.getDouble("Spawn.Yaw"),
+                (float) config.getDouble("Spawn.Pitch"));
     }
 
     @EventHandler
     public void onJoin(PlayerJoinEvent e) {
         Location spawn = getSpawn(plugin);
         if (spawn != null) {
-           e.getPlayer().teleport(spawn);
+            e.getPlayer().teleport(spawn);
         }
     }
 }

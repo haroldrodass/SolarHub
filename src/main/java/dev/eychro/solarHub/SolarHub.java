@@ -12,6 +12,7 @@ import dev.eychro.solarHub.Listeners.Player.JoinMessage;
 import dev.eychro.solarHub.Listeners.Player.PlayerProtection;
 import dev.eychro.solarHub.Listeners.World.BlockInteractions;
 import dev.eychro.solarHub.Listeners.World.ItemProtection;
+import dev.eychro.solarHub.Listeners.World.MobsSpawn;
 import dev.eychro.solarHub.Managers.FileManager;
 import org.bukkit.command.CommandExecutor;
 import org.bukkit.event.Listener;
@@ -25,14 +26,13 @@ public final class SolarHub extends JavaPlugin {
     @Override
     public void onEnable() {
         Files();
+        buildMode = new BuildMode(this);
         Commands();
         Listeners();
-
     }
 
     @Override
     public void onDisable() {
-
     }
 
     private void registerListener(Listener listener) {
@@ -49,10 +49,11 @@ public final class SolarHub extends JavaPlugin {
 
     public void Listeners() {
         registerListener(new BlockInteractions(this, buildMode));
-        registerListener(new PlayerProtection());
+        registerListener(new ItemProtection(this, buildMode));
+        registerListener(new PlayerProtection(this));
         registerListener(new JoinListener(this));
         registerListener(new JoinMessage(this));
-        registerListener(new ItemProtection(this, buildMode));
+        registerListener(new MobsSpawn());
         registerListener(new DoubleJump(this));
         registerListener(new LaunchPad(this));
     }
@@ -62,7 +63,7 @@ public final class SolarHub extends JavaPlugin {
         registerCommand("Discord", new Discord(this));
         registerCommand("Website", new Website(this));
         registerCommand("Spawn", new Spawn(this));
-        registerCommand("BuildMode", new BuildMode(this));
+        registerCommand("BuildMode", buildMode); // misma instancia que los listeners
         registerCommand("SetSpawn", new SetSpawn(this));
     }
 
@@ -77,5 +78,4 @@ public final class SolarHub extends JavaPlugin {
     public FileManager getFiles() {
         return files;
     }
-
 }

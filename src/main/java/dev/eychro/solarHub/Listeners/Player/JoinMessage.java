@@ -19,10 +19,12 @@ public class JoinMessage implements Listener {
     public void onJoin(PlayerJoinEvent e) {
         Player player = e.getPlayer();
 
-        if (player.hasPermission("SolarHub.JoinMessage")) {
-            String Mensaje = plugin.getFiles().getMessage("JoinMessage").replace("%player%", player.getName());
-            e.setJoinMessage(Mensaje);
-            return;
+        if (player.hasPermission("Solar.JoinMessage")) {
+            String mensaje = plugin.getFiles().getMessage("JoinMessage");
+            if (mensaje != null) {
+                e.setJoinMessage(mensaje.replace("%player%", player.getName()));
+                return;
+            }
         }
 
         e.setJoinMessage(null);
@@ -32,5 +34,4 @@ public class JoinMessage implements Listener {
     public void onQuit(PlayerQuitEvent e) {
         e.setQuitMessage(null);
     }
-
 }
