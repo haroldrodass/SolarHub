@@ -15,7 +15,15 @@ public class SolarHub implements CommandExecutor {
 
     @Override
     public boolean onCommand(@NotNull CommandSender sender, @NotNull Command command, @NotNull String s, @NotNull String @NotNull [] args) {
+
+
+
+
         if (args.length == 0 || args[0].equalsIgnoreCase("help")) {
+            if (!sender.hasPermission("Solar.Help")) {
+                sender.sendMessage(plugin.getFiles().getMessage("No-permission"));
+                return true;
+            }
             for (String line : plugin.getFiles().getMessageList("Help")) {
                 sender.sendMessage(line);
             }
@@ -31,9 +39,6 @@ public class SolarHub implements CommandExecutor {
             plugin.reloadAll();
             sender.sendMessage(plugin.getFiles().getMessage("Reloaded"));
         }
-
-
-
         return false;
     }
 }
