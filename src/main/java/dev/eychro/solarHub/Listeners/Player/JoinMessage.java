@@ -19,8 +19,6 @@ public class JoinMessage implements Listener {
     public void onJoin(PlayerJoinEvent e) {
         Player player = e.getPlayer();
 
-        player.sendTitle("&6&lSolar&f&lHub", "&eDisfruta la aventura", 10, 70, 20);
-
         if (plugin.getVanish().isVanished(player.getUniqueId())) {
             e.setJoinMessage(null);
             return;

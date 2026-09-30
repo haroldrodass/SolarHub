@@ -70,7 +70,7 @@ Welcome-Title:
   enabled: true
   Time:
     Appearance: 1   # Cuánto tarda en aparecer (fade in).
-    Duration: 3       # Cuánto tiempo permanece visible por completo.
+    Duration: 1       # Cuánto tiempo permanece visible por completo.
     fading: 1       # Cuánto tarda en desvanecerse (fade out).
 
 # Doble salto: el jugador presiona espacio dos veces en el aire para
