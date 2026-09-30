@@ -104,6 +104,40 @@ FlyDisabled: "&cFly Disabled"
 Vanished-Disabled: "&cVanish disabled"
 Vanished-Enabled: "&aVanish enabled"
 
+#########################################################
+#                    ANNOUNCEMENTS                      #
+#########################################################
+
+Announcement:
+  shop:
+    - "--------------------------------------------------"
+    - ""
+    - "&6&l¡Visita nuestra tienda en tienda.miservidor.com!"
+    - "&e&lConsigue rangos y kits exclusivos en /shop"
+    - ""
+    - "--------------------------------------------------"
+  discord:
+    - "--------------------------------------------------"
+    - ""
+    - "&9&l¡Únete a nuestro Discord! discord.gg/tuinvite"
+    - "&b&lEntérate de novedades y sorteos en Discord"
+    - ""
+    - "--------------------------------------------------"
+  website:
+    - "--------------------------------------------------"
+    - ""
+    - "&a&lVisita nuestra web: www.miservidor.com"
+    - "&a&lEncuentra guías y reglas en nuestra página"
+    - ""
+    - "--------------------------------------------------"
+  discounts:
+    - "--------------------------------------------------"
+    - ""
+    - "&c&l¡50% de descuento en rangos este fin de semana!"
+    - "&6&lUsa el código &eVERANO &6para un 20% extra"
+    - ""
+    - "--------------------------------------------------"
+
 
 ################################################
 #                                              #

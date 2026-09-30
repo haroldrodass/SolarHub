@@ -7,6 +7,7 @@ import dev.eychro.solarHub.Commands.User.Discord;
 import dev.eychro.solarHub.Commands.User.Fly;
 import dev.eychro.solarHub.Commands.User.Spawn;
 import dev.eychro.solarHub.Commands.User.Website;
+import dev.eychro.solarHub.Features.Announcements;
 import dev.eychro.solarHub.Features.DoubleJump;
 import dev.eychro.solarHub.Features.LaunchPad;
 import dev.eychro.solarHub.Features.Welcome;
@@ -27,19 +28,25 @@ public final class SolarHub extends JavaPlugin {
     private FileManager files;
     private BuildMode buildMode;
     private Vanish vanish;
+    private Announcements announcements;
 
     @Override
     public void onEnable() {
+        Files();
+
         vanish = new Vanish(this);
         buildMode = new BuildMode(this);
 
-        Files();
+        announcements = new Announcements(this);
+        announcements.Announce();
+
         Commands();
         Listeners();
     }
 
     @Override
     public void onDisable() {
+        if (announcements != null) announcements.stop();
     }
 
     private void registerListener(Listener listener) {
@@ -83,6 +90,7 @@ public final class SolarHub extends JavaPlugin {
 
     public void reloadAll() {
         files.reloadAll();
+        announcements.Announce();
     }
 
     public void Files() {

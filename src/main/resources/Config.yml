@@ -59,6 +59,10 @@ Website:
 #                                              #
 ################################################
 
+Announcements:
+  enabled: true
+  timer: 120         # in seconds
+
 # Comando /vanish para ocultarse de otros jugadores.
 Vanish:
   enabled: true

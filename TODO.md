@@ -28,19 +28,19 @@
 
 ## 🆕 New features
 - [ ] Hotbar items: configurable join items (selector, cosmetics, profile, etc.)
-- [ ] Player visibility toggle (show/hide players)
+- [X] Player visibility toggle (show/hide players)
 - [ ] Join and quit messages, plus a join title and sound
 - [ ] Chat formatting and optional chat cooldown in the hub
 - [ ] Custom join fireworks / effects
-- [ ] Ride-a-player / pick up players (optional)
-- [ ] Custom hologram or NPC selectors
-- [ ] Parkour with checkpoints and timer
+- [X] Ride-a-player / pick up players (optional)
+- [X] Custom hologram or NPC selectors
+- [X] Parkour with checkpoints and timer
 - [ ] Cosmetics: particles, trails and hats
-- [ ] Hub selector: multiple hubs (Hub-1, Hub-2...) with `/hub` switching
+- [X] Hub selector: multiple hubs (Hub-1, Hub-2...) with `/hub` switching
 - [ ] Fly mode for ranks/staff
 - [ ] Vanish for staff
-- [ ] Daily rewards or a simple quest system
-- [ ] Multi-language messages
+- [X] Daily rewards or a simple quest system
+- [X] Multi-language messages
 
 ## 🔗 Integrations
 - [ ] Velocity / BungeeCord messaging
