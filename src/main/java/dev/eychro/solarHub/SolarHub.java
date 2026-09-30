@@ -9,6 +9,7 @@ import dev.eychro.solarHub.Commands.User.Spawn;
 import dev.eychro.solarHub.Commands.User.Website;
 import dev.eychro.solarHub.Features.DoubleJump;
 import dev.eychro.solarHub.Features.LaunchPad;
+import dev.eychro.solarHub.Features.Welcome;
 import dev.eychro.solarHub.Listeners.Player.JoinListener;
 import dev.eychro.solarHub.Listeners.Player.JoinMessage;
 import dev.eychro.solarHub.Listeners.Player.PlayerProtection;
@@ -62,6 +63,7 @@ public final class SolarHub extends JavaPlugin {
         registerListener(new MobsSpawn());
         registerListener(new DoubleJump(this));
         registerListener(new LaunchPad(this));
+        registerListener(new Welcome(this));
 
         registerListener(vanish);
     }

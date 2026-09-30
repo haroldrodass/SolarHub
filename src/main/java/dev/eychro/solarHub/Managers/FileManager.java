@@ -12,6 +12,10 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
+import net.kyori.adventure.text.Component;
+import net.kyori.adventure.text.minimessage.MiniMessage;
+import net.kyori.adventure.text.minimessage.tag.resolver.TagResolver;
+
 public class FileManager {
 
     public static final String CONFIG = "Config.yml";
@@ -104,4 +108,16 @@ public class FileManager {
         }
         return result;
     }
+
+    private static final MiniMessage MM = MiniMessage.miniMessage();
+
+    public String getRaw(String path) {
+        return getMessages().getString(path, "<red>Mensaje no encontrado: " + path);
+    }
+
+    public Component getComponent(String path, TagResolver... resolvers) {
+        return MM.deserialize(getRaw(path), resolvers);
+    }
+
+
 }

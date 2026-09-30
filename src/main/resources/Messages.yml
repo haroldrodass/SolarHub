@@ -6,33 +6,115 @@
 #        https://github.com/haroldrodass/SolarHub       #
 #                                                       #
 #########################################################
+#
+# GUÍA RÁPIDA DE FORMATOS
+#
+# Este archivo usa DOS formatos de color según el mensaje:
+#
+#  1) Códigos con "&" (mensajes de chat, listas de Discord/Website/Help):
+#       &a = verde     &c = rojo      &e = amarillo   &6 = dorado
+#       &b = celeste   &9 = azul      &7 = gris       &f = blanco
+#       &8 = gris osc. &l = negrita   &m = tachado    &r = reiniciar
+#
+#  2) MiniMessage (SOLO Welcome-Title y Welcome-Subtitle):
+#       <gold>texto</gold>                    color
+#       <bold>texto</bold>                    negrita
+#       <gradient:gold:yellow>texto</gradient> degradado
+#       <#ff8800>texto                        color hexadecimal
+#     No mezcles "&" con etiquetas <...> en el mismo mensaje.
+#
+# PLACEHOLDERS
+#   %player%        Nombre del jugador (solo en JoinMessage)
+#   <player>        Nombre del jugador (solo en Welcome-Title/Subtitle)
+#   %link-discord%  Enlace de Discord (se toma de Config.yml)
+#   %link-website%  Enlace de la web (se toma de Config.yml)
+#
+# NOTA: Después de editar, usa el comando de recarga del plugin
+# (o reinicia el servidor) para aplicar los cambios.
+#########################################################
 
-Prefix: "&6Solar&fHub &8->&f"
 
+# Prefijo que se añade al inicio de los mensajes de chat.
+# NO se usa en los títulos de pantalla.
+Prefix: "&6Solar&fHub &8->&f "
+
+
+#########################################################
+#                   MENSAJES GENERALES                  #
+#########################################################
+
+# El jugador no tiene permiso para usar el comando.
 No-permission: "&cNo permission to do this."
+
+# Un comando exclusivo para jugadores se ejecutó desde la consola.
 OnlyPlayer: "&cOnly players can execute this command"
+
+# Se recargó la configuración del plugin.
 Reloaded: "&aPlugin Reloaded"
 
+
+#########################################################
+#                     MODO CONSTRUCCIÓN                 #
+#########################################################
+
+# Mensajes al desactivar / activar el modo construcción.
 DisableBuildMode: "&cBuild Mode Disabled"
 EnableBuildMode: "&aBuild Mode Enabled"
 
+
+#########################################################
+#                     ENTRADA AL SERVER                 #
+#########################################################
+
+# Mensaje público cuando un jugador entra. Placeholder: %player%
 JoinMessage: "%player% just joined the server."
 
+# Título que aparece en pantalla al entrar (formato MiniMessage).
+# Placeholder disponible: <player>
+Welcome-Title: "<gradient:gold:yellow><bold>¡Bienvenido a SolarHub!</bold></gradient>"
+
+# Subtítulo debajo del título (formato MiniMessage).
+# Déjalo como "" si no quieres subtítulo. No uses null.
+Welcome-Subtitle: "<gray>Disfruta tu estancia, <white><player>"
+
+
+#########################################################
+#                         SPAWN                         #
+#########################################################
+
+# Se guardó el spawn en las coordenadas del jugador.
 SpawnSet: "&aSpawn set at your coordinates"
+
+# Se intentó ir al spawn pero todavía no hay uno definido.
 No-Spawn: "&cNo Spawn set"
+
+
+#########################################################
+#                          FLY                          #
+#########################################################
 
 FlyEnabled: "&aFly Enabled"
 FlyDisabled: "&cFly Disabled"
 
+
+#########################################################
+#                        VANISH                         #
+#########################################################
+
 Vanished-Disabled: "&cVanish disabled"
 Vanished-Enabled: "&aVanish enabled"
+
 
 ################################################
 #                                              #
 #                     Redes                    #
 #                                              #
 ################################################
+# Estos mensajes son listas: cada línea "-" es una línea de chat.
+# Una línea vacía ("") sirve como separador.
+# "&8&m---" dibuja una línea divisoria tachada.
 
+# Comando /discord. Usa %link-discord%.
 Discord:
   - "&8&m----------------------------------------"
   - "               &9&lDiscord"
@@ -42,6 +124,7 @@ Discord:
   - ""
   - "&8&m----------------------------------------"
 
+# Comando /website. Usa %link-website%.
 Website:
   - "&8&m----------------------------------------"
   - "               &6&lWebsite"
@@ -51,6 +134,7 @@ Website:
   - ""
   - "&8&m----------------------------------------"
 
+# Comando /help. Puedes añadir o quitar líneas libremente.
 Help:
   - "&8&m----------------------------------------"
   - "             &e&lSolar Hub &8| &fHelp"

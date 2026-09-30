@@ -6,35 +6,52 @@
 #        https://github.com/haroldrodass/SolarHub       #
 #                                                       #
 #########################################################
+#
+# GUÍA RÁPIDA
+#
+#  - true / false activa o desactiva una función.
+#  - NO cambies los nombres de las claves (lo de la izquierda de los ":"),
+#    solo los valores. Respeta las mayúsculas y minúsculas.
+#  - Los nombres de sonidos, partículas y bloques deben escribirse en
+#    MAYÚSCULAS con guiones bajos, tal como aparecen en la documentación
+#    de Paper (Sound, Particle y Material).
+#  - Los mensajes de texto se editan en Messages.yml, no aquí.
+#  - Después de editar, usa el comando de recarga o reinicia el servidor.
+#########################################################
 
 ################################################
 #                                              #
 #                     Spawn                    #
 #                                              #
 ################################################
+# Punto de aparición principal. Se usa en /spawn, /hub y al entrar al server.
+# NO es necesario editarlo a mano: entra al juego, párate donde quieras
+# el spawn y usa el comando de establecer spawn del plugin.
 
 Spawn:
-  Set: true
-  World: "world"
-  X: 0.0
+  Set: true          # Indica si ya hay un spawn definido. Si es false, se muestra "No Spawn set".
+  World: "world"     # Nombre EXACTO del mundo donde está el spawn.
+  X: 0.0             # Coordenadas del spawn.
   Y: 0.0
   Z: 0.0
-  Yaw: 0.0
-  Pitch: 0.0
+  Yaw: 0.0           # Rotación horizontal (hacia dónde mira el jugador).
+  Pitch: 0.0         # Rotación vertical (arriba/abajo).
 
 ################################################
 #                                              #
 #                     Redes                    #
 #                                              #
 ################################################
+# Enlaces mostrados por los comandos /discord y /website.
+# Se insertan en los mensajes de Messages.yml (%link-discord% y %link-website%).
 
 Discord:
-  Enabled: true
-  Link: "https://discord.gg/rnEphVbhn6"
+  Enabled: true                          # false = el comando /discord se desactiva.
+  Link: "https://discord.gg/rnEphVbhn6"  # Enlace de invitación.
 
 Website:
-  Enabled: true
-  Link: "https://github.com/haroldrodass/SolarHub"
+  Enabled: true                                      # false = el comando /website se desactiva.
+  Link: "https://github.com/haroldrodass/SolarHub"   # Enlace de tu página web.
 
 ################################################
 #                                              #
@@ -42,25 +59,40 @@ Website:
 #                                              #
 ################################################
 
+# Comando /vanish para ocultarse de otros jugadores.
 Vanish:
   enabled: true
 
+# Título que aparece en pantalla al entrar al servidor.
+# El texto se configura en Messages.yml (Welcome-Title y Welcome-Subtitle).
+# Los tiempos van en SEGUNDOS y aceptan decimales (0.5 = medio segundo).
+Welcome-Title:
+  enabled: true
+  Time:
+    Appearance: 1   # Cuánto tarda en aparecer (fade in).
+    Duration: 3       # Cuánto tiempo permanece visible por completo.
+    fading: 1       # Cuánto tarda en desvanecerse (fade out).
+
+# Doble salto: el jugador presiona espacio dos veces en el aire para
+# impulsarse de nuevo.
 DoubleJump:
   enabled: true
-  power: 0.5
-  height: 1.5
-  Sound: ENTITY_BAT_TAKEOFF
+  power: 0.5                  # Fuerza del impulso hacia adelante.
+  height: 1.5                 # Fuerza del impulso hacia arriba.
+  Sound: ENTITY_BAT_TAKEOFF   # Sonido al saltar. Escribe NONE si no quieres sonido (ver nota).
   particle:
-    enabled: true
-    type: CLOUD
-    Visible-For-Everyone: true
+    enabled: true             # Mostrar partículas al saltar.
+    type: CLOUD               # Tipo de partícula (CLOUD, FLAME, HEART, etc.).
+    Visible-For-Everyone: true  # true = todos las ven; false = solo el jugador que salta.
 
+# Plataforma de lanzamiento: al pisar el bloque configurado, el jugador
+# sale disparado.
 LaunchPad:
   enabled: true
-  block: SLIME_BLOCK
-  power: 1.0
-  height: 1.0
-  Sound: ENTITY_FIREWORK_ROCKET_LAUNCH
+  block: SLIME_BLOCK          # Bloque que actúa como plataforma. Ej: SLIME_BLOCK, IRON_BLOCK, GOLD_BLOCK.
+  power: 1.0                  # Fuerza del impulso hacia adelante.
+  height: 1.0                 # Fuerza del impulso hacia arriba.
+  Sound: ENTITY_FIREWORK_ROCKET_LAUNCH  # Sonido al lanzar.
   particle:
     enabled: true
     type: FLAME
