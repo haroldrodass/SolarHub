@@ -11,10 +11,12 @@ commands:
   solarhub:
     description: Comando principal de administración de SolarHub.
     usage: "§cUso correcto: /solarhub <help|reload>"
+    aliases: [sh]
 
   discord:
     description: Muestra el enlace de Discord.
     usage: /<command>
+    aliases: [dc]
     permission: Solar.Discord
 
   website:
@@ -25,6 +27,7 @@ commands:
   spawn:
     description: Teletransporta al jugador al spawn.
     usage: /<command>
+    aliases: [hub]
     permission: Solar.Spawn
 
   buildmode:
