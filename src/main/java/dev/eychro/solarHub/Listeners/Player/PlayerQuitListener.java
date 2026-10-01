@@ -24,5 +24,8 @@ public class PlayerQuitListener implements Listener {
         if (buildMode.hasBuildMode(player.getUniqueId())) {
             buildMode.removePlayerOnQuit(player);
         }
+        if (plugin.getScoreboardManager() != null) {
+            plugin.getScoreboardManager().removeScoreboard(player);
+        }
     }
 }

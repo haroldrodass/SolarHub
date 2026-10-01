@@ -105,6 +105,25 @@ LaunchPad:
 
 ################################################
 #                                              #
+#                   Parkour                    #
+#                                              #
+################################################
+Parkour:
+  enabled: true
+  start-material: "LIGHT_WEIGHTED_PRESSURE_PLATE"
+  checkpoint-material: "HEAVY_WEIGHTED_PRESSURE_PLATE"
+
+################################################
+#                                              #
+#                  Scoreboard                  #
+#                                              #
+################################################
+Scoreboard:
+  enabled: true
+  update-interval: 20   # ticks entre actualizaciones (20 ticks = 1 segundo)
+
+################################################
+#                                              #
 #                 Cooldowns                    #
 #                                              #
 ################################################
@@ -483,4 +502,4 @@ Menus:
         name: "&c&lCerrar"
         lore:
           - "&7Click para salir del menú."
-        action: "CLOSE"
+        action: "CLOSE"

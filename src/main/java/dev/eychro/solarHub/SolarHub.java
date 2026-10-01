@@ -35,6 +35,7 @@ public final class SolarHub extends JavaPlugin {
     private Vanish vanish;
     private Announcements announcements;
     private ParkourManager parkourManager;
+    private ScoreboardManager scoreboardManager;
 
     @Override
     public void onEnable() {
@@ -50,6 +51,12 @@ public final class SolarHub extends JavaPlugin {
         vanish = new Vanish(this);
         buildMode = new BuildMode(this);
         parkourManager = new ParkourManager(this);
+        scoreboardManager = new ScoreboardManager(this);
+
+        if (org.bukkit.Bukkit.getPluginManager().isPluginEnabled("PlaceholderAPI")) {
+            new dev.eychro.solarHub.Utils.PlaceholderAPIHook(this).register();
+            getLogger().info("PlaceholderAPI detectado y registrado correctamente.");
+        }
 
         announcements = new Announcements(this);
         announcements.Announce();
@@ -63,6 +70,7 @@ public final class SolarHub extends JavaPlugin {
         if (announcements != null) announcements.stop();
         if (cosmeticsManager != null) cosmeticsManager.stopTask();
         if (parkourManager != null) parkourManager.stopTask();
+        if (scoreboardManager != null) scoreboardManager.stopTask();
         getServer().getMessenger().unregisterOutgoingPluginChannel(this, "BungeeCord");
     }
 
@@ -161,6 +169,10 @@ public final class SolarHub extends JavaPlugin {
 
     public ParkourManager getParkourManager() {
         return parkourManager;
+    }
+
+    public ScoreboardManager getScoreboardManager() {
+        return scoreboardManager;
     }
 
     public Vanish getVanish() {

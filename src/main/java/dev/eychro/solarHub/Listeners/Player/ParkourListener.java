@@ -35,12 +35,20 @@ public class ParkourListener implements Listener {
     public void onPressurePlate(PlayerInteractEvent event) {
         if (event.getAction() != Action.PHYSICAL) return;
 
+        if (!plugin.getFiles().getConfig().getBoolean("Parkour.enabled", true)) return;
+
         Block block = event.getClickedBlock();
         if (block == null) return;
 
         Player player = event.getPlayer();
 
-        if (block.getType() == Material.LIGHT_WEIGHTED_PRESSURE_PLATE) {
+        String startMatName = plugin.getFiles().getConfig().getString("Parkour.start-material", "LIGHT_WEIGHTED_PRESSURE_PLATE");
+        String checkMatName = plugin.getFiles().getConfig().getString("Parkour.checkpoint-material", "HEAVY_WEIGHTED_PRESSURE_PLATE");
+
+        Material startMat = Material.matchMaterial(startMatName);
+        Material checkMat = Material.matchMaterial(checkMatName);
+
+        if (startMat != null && block.getType() == startMat) {
 
             if (parkourManager.isExitLocked(player)) {
                 parkourManager.extendExitLock(player);
@@ -66,7 +74,7 @@ public class ParkourListener implements Listener {
             } else {
                 parkourManager.finishParkour(player);
             }
-        } else if (block.getType() == Material.HEAVY_WEIGHTED_PRESSURE_PLATE) {
+        } else if (checkMat != null && block.getType() == checkMat) {
             if (parkourManager.isPlaying(player)) {
                 parkourManager.handleCheckpoint(player, block);
             }

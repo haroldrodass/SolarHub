@@ -124,33 +124,33 @@ Vanished-Enabled: "&aVanish enabled"
 
 Announcement:
   shop:
-    - "--------------------------------------------------"
+    - "&m                                                      "
     - ""
     - "&6&l¡Visita nuestra tienda en tienda.miservidor.com!"
     - "&e&lConsigue rangos y kits exclusivos en /shop"
     - ""
-    - "--------------------------------------------------"
+    - "&m                                                      "
   discord:
-    - "--------------------------------------------------"
+    - "&m                                                      "
     - ""
     - "&9&l¡Únete a nuestro Discord! discord.gg/tuinvite"
     - "&b&lEntérate de novedades y sorteos en Discord"
     - ""
-    - "--------------------------------------------------"
+    - "&m                                                      "
   website:
-    - "--------------------------------------------------"
+    - "&m                                                      "
     - ""
     - "&a&lVisita nuestra web: www.miservidor.com"
     - "&a&lEncuentra guías y reglas en nuestra página"
     - ""
-    - "--------------------------------------------------"
+    - "&m                                                      "
   discounts:
-    - "--------------------------------------------------"
+    - "&m                                                      "
     - ""
     - "&c&l¡50% de descuento en rangos este fin de semana!"
     - "&6&lUsa el código &eVERANO &6para un 20% extra"
     - ""
-    - "--------------------------------------------------"
+    - "&m                                                     "
 
 
 ################################################
@@ -164,27 +164,27 @@ Announcement:
 
 # Comando /discord. Usa %link-discord%.
 Discord:
-  - "&8&m----------------------------------------"
+  - "&8&m                                          "
   - "               &9&lDiscord"
   - ""
   - " &7¡Únete a nuestra comunidad para estar al día!"
   - " &b%link-discord%"
   - ""
-  - "&8&m----------------------------------------"
+  - "&8&m                                          "
 
 # Comando /website. Usa %link-website%.
 Website:
-  - "&8&m----------------------------------------"
+  - "&8&m                                          "
   - "               &6&lWebsite"
   - ""
   - " &7¡Visita nuestra página oficial para más información!"
   - " &b%link-website%"
   - ""
-  - "&8&m----------------------------------------"
+  - "&8&m                                          "
 
 # Comando /help. Puedes añadir o quitar líneas libremente.
 Help:
-  - "&8&m----------------------------------------"
+  - "&8&m                                          "
   - "             &e&lSolar Hub &8| &fHelp"
   - ""
   - " &6/spawn &7- Teleport to the main spawn."
@@ -197,7 +197,7 @@ Help:
   - " &6/discord &7- Join our community Discord."
   - " &6/website &7- Visit our official website."
   - ""
-  - "&8&m----------------------------------------"
+  - "&8&m                                          "
 
 #########################################################
 #                       HOTBAR                          #
@@ -216,3 +216,21 @@ ConnectingServer: "&aConectando a &e%server%&a..."
 CosmeticActivated: "&a¡Cosmético &e%cosmetic% &aactivado!"
 CosmeticRemoved: "&c¡Cosmético(s) desactivado(s)!"
 NoCosmeticsActive: "&eNo tienes ningún cosmético activo actualmente."
+
+#########################################################
+#                      SCOREBOARD                       #
+#########################################################
+
+Scoreboard:
+  title: "&6&lSolar Hub"
+  lines:
+    - "&7&m                        "
+    - "&fJugador: &e%player%"
+    - "&fRank: %luckperms_prefix%"
+    - ""
+    - "&fPing: &a%solarhub_ping%ms"
+    - ""
+    - "&fParkour: %solarhub_parkour_playing%"
+    - "&7&m                        "
+
+

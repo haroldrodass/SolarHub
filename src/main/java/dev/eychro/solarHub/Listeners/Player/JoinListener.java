@@ -43,5 +43,8 @@ public class JoinListener implements Listener {
         if (spawn != null) {
             e.getPlayer().teleport(spawn);
         }
+        if (plugin.getScoreboardManager() != null) {
+            plugin.getScoreboardManager().showScoreboard(e.getPlayer());
+        }
     }
 }
