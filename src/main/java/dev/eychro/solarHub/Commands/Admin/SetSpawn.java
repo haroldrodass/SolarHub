@@ -19,19 +19,21 @@ public class SetSpawn implements CommandExecutor {
 
     @Override
     public boolean onCommand(@NotNull CommandSender sender, @NotNull Command command, @NotNull String s, @NotNull String @NotNull [] strings) {
-        if (!(sender instanceof Player)) {
+        if (!(sender instanceof Player player)) {
             sender.sendMessage(plugin.getFiles().getMessage("OnlyPlayer"));
             return true;
         }
 
-        if (!sender.hasPermission("Solar.SetSpawn")) {
-            sender.sendMessage(plugin.getFiles().getMessage("No-permission"));
+        if (!player.hasPermission("Solar.SetSpawn")) {
+            player.sendMessage(plugin.getFiles().getMessage("No-permission"));
             return true;
         }
 
-        Player p = (Player) sender;
+        if (!plugin.getCooldownManager().checkAndApply(player, "setspawn")) {
+            return true;
+        }
 
-        Location loc = p.getLocation();
+        Location loc = player.getLocation();
         FileConfiguration config = plugin.getFiles().getConfig();
         config.set("Spawn.Set", true);
         config.set("Spawn.World", loc.getWorld().getName());
@@ -42,7 +44,7 @@ public class SetSpawn implements CommandExecutor {
         config.set("Spawn.Pitch", (double) loc.getPitch());
         plugin.getFiles().save(FileManager.CONFIG);
 
-        sender.sendMessage(plugin.getFiles().getMessage("SpawnSet"));
+        player.sendMessage(plugin.getFiles().getMessage("SpawnSet"));
 
         return true;
     }

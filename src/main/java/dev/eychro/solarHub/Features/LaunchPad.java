@@ -56,6 +56,18 @@ public class LaunchPad implements Listener {
             return;
         }
 
+        if (plugin.getCooldownManager().hasCooldown(player, "LaunchPad")) {
+            if (config.getBoolean("Cooldowns.LaunchPad-Message", false)) {
+                plugin.getCooldownManager().sendThrottledCooldownMessage(player, "LaunchPad", 1000);
+            }
+            return;
+        }
+
+        double cd = plugin.getCooldownManager().getCooldownSeconds("LaunchPad");
+        if (cd > 0) {
+            plugin.getCooldownManager().applyCooldown(player, "LaunchPad", cd);
+        }
+
         double power = config.getDouble("LaunchPad.power", 1.0);
         double height = config.getDouble("LaunchPad.height", 1.0);
 

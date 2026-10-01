@@ -19,21 +19,27 @@ public class Spawn implements CommandExecutor {
     @Override
     public boolean onCommand(@NotNull CommandSender sender, @NotNull Command command, @NotNull String s, @NotNull String @NotNull [] strings) {
 
-        if (!(sender instanceof Player)) {
+        if (!(sender instanceof Player player)) {
             sender.sendMessage(plugin.getFiles().getMessage("OnlyPlayer"));
             return true;
         }
 
-        if (!sender.hasPermission("Solar.Spawn")) {
-            sender.sendMessage(plugin.getFiles().getMessage("No-permission"));
+        if (!player.hasPermission("Solar.Spawn")) {
+            player.sendMessage(plugin.getFiles().getMessage("No-permission"));
             return true;
         }
 
-        if (JoinListener.getSpawn(plugin) == null) {
-            sender.sendMessage(plugin.getFiles().getMessage("No-Spawn"));
-        } else {
-            ((Player) sender).teleport(JoinListener.getSpawn(plugin));
+        Location spawn = JoinListener.getSpawn(plugin);
+        if (spawn == null) {
+            player.sendMessage(plugin.getFiles().getMessage("No-Spawn"));
+            return true;
         }
+
+        if (!plugin.getCooldownManager().checkAndApply(player, "spawn")) {
+            return true;
+        }
+
+        player.teleport(spawn);
         return true;
     }
 }

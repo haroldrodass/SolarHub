@@ -42,6 +42,10 @@ public class Vanish implements CommandExecutor, Listener {
             return true;
         }
 
+        if (!plugin.getCooldownManager().checkAndApply(player, "vanish")) {
+            return true;
+        }
+
         if (vanishedPlayers.contains(player.getUniqueId())) {
             vanishedPlayers.remove(player.getUniqueId());
 

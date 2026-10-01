@@ -1,11 +1,14 @@
 package dev.eychro.solarHub.Features;
 
 import dev.eychro.solarHub.SolarHub;
+import net.kyori.adventure.key.Key;
+import net.kyori.adventure.sound.Sound;
 import net.kyori.adventure.text.Component;
 import net.kyori.adventure.text.minimessage.MiniMessage;
 import net.kyori.adventure.text.serializer.legacy.LegacyComponentSerializer;
 import org.bukkit.Bukkit;
 import org.bukkit.configuration.ConfigurationSection;
+import org.bukkit.entity.Player;
 import org.bukkit.scheduler.BukkitTask;
 
 import java.util.ArrayList;
@@ -74,6 +77,31 @@ public class Announcements {
 
         for (String line : announcements.get(index++)) {
             Bukkit.broadcast(line == null || line.isBlank() ? Component.empty() : parse(line));
+        }
+
+        playSound();
+    }
+
+    private void playSound() {
+        String soundName = plugin.getFiles().getConfig().getString("Announcements.sound", "NONE");
+
+        if (soundName == null || soundName.equalsIgnoreCase("NONE") || soundName.isBlank()) {
+            return;
+        }
+
+        try {
+            String keyString = soundName.toLowerCase().replace("_", ".");
+            if (!keyString.contains(":")) {
+                keyString = "minecraft:" + keyString;
+            }
+
+            Sound adventureSound = Sound.sound(Key.key(keyString), Sound.Source.MASTER, 1.0f, 1.0f);
+
+            for (Player player : Bukkit.getOnlinePlayers()) {
+                player.playSound(adventureSound);
+            }
+        } catch (Exception e) {
+            plugin.getLogger().warning("El sonido '" + soundName + "' configurado en Announcements.sound no es válido.");
         }
     }
 

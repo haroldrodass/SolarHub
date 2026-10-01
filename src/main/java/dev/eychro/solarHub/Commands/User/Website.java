@@ -16,24 +16,28 @@ public class Website implements CommandExecutor {
 
     @Override
     public boolean onCommand(@NotNull CommandSender sender, @NotNull Command command, @NotNull String s, @NotNull String @NotNull [] strings) {
-        if (!plugin.getFiles().getConfig().getBoolean("Website.Enabled")) {
+        if (!plugin.getFiles().getConfig().getBoolean("Website.Enabled", true)) {
             return true;
         }
 
-        if (!(sender instanceof Player)) {
-            sender.sendMessage(plugin.getConfig().getString("Messages.OnlyPlayer"));
+        if (!(sender instanceof Player player)) {
+            sender.sendMessage(plugin.getFiles().getMessage("OnlyPlayer"));
             return true;
         }
 
-        if (!sender.hasPermission("Solar.Website")) {
-            sender.sendMessage(plugin.getConfig().getString("Messages.NoPermission"));
+        if (!player.hasPermission("Solar.Website")) {
+            player.sendMessage(plugin.getFiles().getMessage("No-permission"));
             return true;
         }
 
-        String Link = plugin.getFiles().getConfig().getString("Website.Link");
+        if (!plugin.getCooldownManager().checkAndApply(player, "website")) {
+            return true;
+        }
 
-        for (String line : plugin.getFiles().getMessageList("Website", "%link-website%", Link)) {
-            sender.sendMessage(line);
+        String link = plugin.getFiles().getConfig().getString("Website.Link", "");
+
+        for (String line : plugin.getFiles().getMessageList("Website", "%link-website%", link)) {
+            player.sendMessage(line);
         }
 
         return true;

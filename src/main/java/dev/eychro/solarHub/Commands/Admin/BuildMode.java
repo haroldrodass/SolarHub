@@ -23,12 +23,17 @@ public class BuildMode implements CommandExecutor {
     @Override
     public boolean onCommand(@NotNull CommandSender sender, @NotNull Command command, @NotNull String s, @NotNull String @NonNull [] strings) {
         if (!(sender instanceof Player player)) {
-            sender.sendMessage(plugin.getConfig().getString("Messages.OnlyPlayer"));
+            sender.sendMessage(plugin.getFiles().getMessage("OnlyPlayer"));
             return true;
         }
 
         if (!player.hasPermission("Solar.BuildMode")) {
-            sender.sendMessage(plugin.getConfig().getString("Messages.NoPermission"));
+            player.sendMessage(plugin.getFiles().getMessage("No-permission"));
+            return true;
+        }
+
+        if (!plugin.getCooldownManager().checkAndApply(player, "buildmode")) {
+            return true;
         }
 
         if (buildmodelist.contains(player.getUniqueId())) {

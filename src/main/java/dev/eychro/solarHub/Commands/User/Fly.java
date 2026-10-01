@@ -17,17 +17,19 @@ public class Fly implements CommandExecutor {
 
     @Override
     public boolean onCommand(@NotNull CommandSender sender, @NotNull Command command, @NotNull String s, @NotNull String @NotNull [] strings) {
-        if (!(sender instanceof Player)) {
+        if (!(sender instanceof Player player)) {
             sender.sendMessage(plugin.getFiles().getMessage("OnlyPlayer"));
             return true;
         }
 
-        if (!sender.hasPermission("Solar.Fly")) {
-            sender.sendMessage(plugin.getFiles().getMessage("No-permission"));
+        if (!player.hasPermission("Solar.Fly")) {
+            player.sendMessage(plugin.getFiles().getMessage("No-permission"));
             return true;
         }
 
-        Player player = (Player) sender;
+        if (!plugin.getCooldownManager().checkAndApply(player, "fly")) {
+            return true;
+        }
 
         if (plugin.getFlyManager().has(player.getUniqueId())) {
             plugin.getFlyManager().remove(player.getUniqueId());

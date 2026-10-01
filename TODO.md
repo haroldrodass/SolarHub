@@ -17,7 +17,7 @@
 - [ ] Server selector: animated or live player counts per server
 - [ ] Server selector: server status (online / offline / full) in the item
 - [ ] Server selector: fill empty slots with decorative glass
-- [ ] Double jump: configurable cooldown, sound and particles
+- [x] Double jump: configurable cooldown, sound and particles
 - [ ] Launchpads: multiple pad types (different power, direction, sound)
 - [ ] Launchpads: create and remove pads in-game with a command
 - [ ] Scoreboard: animated title and per-player placeholders

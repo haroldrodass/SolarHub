@@ -48,6 +48,9 @@ commands:
     permission: Solar.Vanish
 
 permissions:
+  Solar.CooldownBypass:
+    description: Permite ignorar todos los cooldowns de comandos, doble salto y launchpad.
+    default: op
   Solar.Discord:
     default: op
   Solar.Website:

@@ -44,7 +44,7 @@ public class DoubleJump implements Listener {
         if (!enabled() || !player.hasPermission("Solar.DoubleJump")) {
             return;
         }
-        if (isValidMode(player)) {
+        if (isValidMode(player) && !plugin.getCooldownManager().hasCooldown(player, "DoubleJump")) {
             player.setAllowFlight(true);
         }
     }
@@ -73,6 +73,30 @@ public class DoubleJump implements Listener {
         e.setCancelled(true);
         p.setAllowFlight(false);
         p.setFlying(false);
+
+        if (plugin.getCooldownManager().hasCooldown(p, "DoubleJump")) {
+            if (plugin.getFiles().getConfig().getBoolean("Cooldowns.DoubleJump-Message", true)) {
+                plugin.getCooldownManager().sendCooldownMessage(p, "DoubleJump");
+            }
+            return;
+        }
+
+        double cd = plugin.getCooldownManager().getCooldownSeconds("DoubleJump");
+        if (cd > 0 && !plugin.getCooldownManager().hasBypass(p)) {
+            plugin.getCooldownManager().applyCooldown(p, "DoubleJump", cd);
+
+            long delayTicks = (long) Math.ceil(cd * 20.0);
+            new BukkitRunnable() {
+                @Override
+                public void run() {
+                    if (p.isOnline() && isValidMode(p) && !hasFly(p) && p.hasPermission("Solar.DoubleJump")) {
+                        if (p.getLocation().subtract(0, 0.1, 0).getBlock().getType().isSolid()) {
+                            p.setAllowFlight(true);
+                        }
+                    }
+                }
+            }.runTaskLater(plugin, delayTicks);
+        }
 
         FileConfiguration config = plugin.getFiles().getConfig();
         double power = config.getDouble("DoubleJump.power", 0.5);
@@ -143,7 +167,9 @@ public class DoubleJump implements Listener {
         }
 
         if (p.getLocation().subtract(0, 0.1, 0).getBlock().getType().isSolid()) {
-            p.setAllowFlight(true);
+            if (!plugin.getCooldownManager().hasCooldown(p, "DoubleJump")) {
+                p.setAllowFlight(true);
+            }
         }
     }
 }

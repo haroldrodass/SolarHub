@@ -52,6 +52,10 @@ OnlyPlayer: "&cOnly players can execute this command"
 # Se recargó la configuración del plugin.
 Reloaded: "&aPlugin Reloaded"
 
+# Mensaje cuando una acción o comando está en tiempo de espera (cooldown).
+# Placeholders: %cooldown%, %time%, %seconds%
+Cooldown: "&cDebes esperar %cooldown% para usar esto de nuevo!"
+
 
 #########################################################
 #                     MODO CONSTRUCCIÓN                 #
@@ -96,6 +100,13 @@ No-Spawn: "&cNo Spawn set"
 FlyEnabled: "&aFly Enabled"
 FlyDisabled: "&cFly Disabled"
 
+#########################################################
+#                       PARKOUR                         #
+#########################################################
+
+ParkourStart: "&a Parkour Started - Timer Started"
+ParkourCheckPoint: "&a Checkpoint Reached"
+ParkourFinish: "&a Parkour Finished"
 
 #########################################################
 #                        VANISH                         #

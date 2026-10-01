@@ -17,6 +17,7 @@ import dev.eychro.solarHub.Listeners.Player.PlayerProtection;
 import dev.eychro.solarHub.Listeners.World.BlockInteractions;
 import dev.eychro.solarHub.Listeners.World.ItemProtection;
 import dev.eychro.solarHub.Listeners.World.MobsSpawn;
+import dev.eychro.solarHub.Managers.CooldownManager;
 import dev.eychro.solarHub.Managers.FileManager;
 import dev.eychro.solarHub.Managers.FlyManager;
 import org.bukkit.command.CommandExecutor;
@@ -26,6 +27,7 @@ import org.bukkit.plugin.java.JavaPlugin;
 public final class SolarHub extends JavaPlugin {
 
     private FileManager files;
+    private CooldownManager cooldownManager;
     private BuildMode buildMode;
     private Vanish vanish;
     private Announcements announcements;
@@ -34,6 +36,7 @@ public final class SolarHub extends JavaPlugin {
     public void onEnable() {
         Files();
 
+        cooldownManager = new CooldownManager(this);
         vanish = new Vanish(this);
         buildMode = new BuildMode(this);
 
@@ -71,6 +74,7 @@ public final class SolarHub extends JavaPlugin {
         registerListener(new DoubleJump(this));
         registerListener(new LaunchPad(this));
         registerListener(new Welcome(this));
+        registerListener(cooldownManager);
 
         registerListener(vanish);
     }
@@ -83,8 +87,6 @@ public final class SolarHub extends JavaPlugin {
         registerCommand("BuildMode", buildMode);
         registerCommand("SetSpawn", new SetSpawn(this));
         registerCommand("Fly", new Fly(this));
-        registerCommand("Vanish", new Vanish(this));
-
         registerCommand("Vanish", vanish);
     }
 
@@ -99,6 +101,10 @@ public final class SolarHub extends JavaPlugin {
 
     public FileManager getFiles() {
         return files;
+    }
+
+    public CooldownManager getCooldownManager() {
+        return cooldownManager;
     }
 
     private final FlyManager flyManager = new FlyManager();

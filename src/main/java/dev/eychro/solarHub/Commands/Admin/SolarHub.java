@@ -21,6 +21,11 @@ public class SolarHub implements CommandExecutor {
                 sender.sendMessage(plugin.getFiles().getMessage("No-permission"));
                 return true;
             }
+            if (sender instanceof org.bukkit.entity.Player player) {
+                if (!plugin.getCooldownManager().checkAndApply(player, "solarhub")) {
+                    return true;
+                }
+            }
             for (String line : plugin.getFiles().getMessageList("Help")) {
                 sender.sendMessage(line);
             }
@@ -32,7 +37,11 @@ public class SolarHub implements CommandExecutor {
                 sender.sendMessage(plugin.getFiles().getMessage("No-permission"));
                 return true;
             }
-
+            if (sender instanceof org.bukkit.entity.Player player) {
+                if (!plugin.getCooldownManager().checkAndApply(player, "solarhub")) {
+                    return true;
+                }
+            }
             plugin.reloadAll();
             sender.sendMessage(plugin.getFiles().getMessage("Reloaded"));
             return true;

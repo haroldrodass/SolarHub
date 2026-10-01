@@ -62,6 +62,7 @@ Website:
 Announcements:
   enabled: true
   timer: 120         # in seconds
+  sound: ENTITY_EXPERIENCE_ORB_PICKUP
 
 # Comando /vanish para ocultarse de otros jugadores.
 Vanish:
@@ -101,3 +102,33 @@ LaunchPad:
     enabled: true
     type: FLAME
     Visible-For-Everyone: true
+
+################################################
+#                                              #
+#                 Cooldowns                    #
+#                                              #
+################################################
+# Tiempos de espera (en segundos) para comandos y habilidades.
+# Pon 0 para desactivar el cooldown de cualquier opción.
+# Los jugadores con el permiso 'Solar.CooldownBypass' ignoran todos los cooldowns.
+
+Cooldowns:
+  # Doble Salto (en segundos)
+  DoubleJump: 5
+  DoubleJump-Message: true     # Enviar mensaje al jugador si intenta saltar en cooldown
+
+  # LaunchPad (en segundos)
+  LaunchPad: 2
+  LaunchPad-Message: false     # Enviar mensaje al pisar un launchpad en cooldown (false para evitar spam)
+
+  # Cooldowns para comandos (en segundos)
+  Commands:
+    default: 0                 # Cooldown por defecto para comandos no listados (0 = sin cooldown)
+    spawn: 5
+    discord: 3
+    website: 3
+    fly: 3
+    vanish: 3
+    buildmode: 3
+    setspawn: 5
+    solarhub: 3
