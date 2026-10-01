@@ -50,6 +50,9 @@ public class ItemProtection implements Listener {
 
     @EventHandler
     public void onClick(InventoryClickEvent e) {
+        if (e.getInventory().getHolder() instanceof dev.eychro.solarHub.Managers.MenuHolder) {
+            return;
+        }
         if (buildMode.hasBuildMode(e.getWhoClicked().getUniqueId())) {
             return;
         }
@@ -58,6 +61,9 @@ public class ItemProtection implements Listener {
 
     @EventHandler
     public void onDrag(InventoryDragEvent e) {
+        if (e.getInventory().getHolder() instanceof dev.eychro.solarHub.Managers.MenuHolder) {
+            return;
+        }
         if (buildMode.hasBuildMode(e.getWhoClicked().getUniqueId())) {
             return;
         }

@@ -47,6 +47,35 @@ commands:
     usage: /<command>
     permission: Solar.Vanish
 
+  servers:
+    description: Abre el menú selector de servidores.
+    usage: /<command>
+    aliases: [selector]
+    permission: Solar.Menu.Servers
+
+  cosmetics:
+    description: Abre el menú de cosméticos del lobby.
+    usage: /<command>
+    aliases: [cosmeticos]
+    permission: Solar.Menu.Cosmetics
+
+  profile:
+    description: Abre tu perfil de jugador.
+    usage: /<command>
+    aliases: [perfil]
+    permission: Solar.Menu.Profile
+
+  setparkourstart:
+    description: Incio del parkour
+    usage: /<command>
+    aliases: [sps]
+    permission: Solar.Admin.Parkour
+
+  setparkourcheckpoint:
+    description: Agrega checkpoint
+    aliases: [spc]
+    permission: Solar.Admin.Parkour
+
 permissions:
   Solar.CooldownBypass:
     description: Permite ignorar todos los cooldowns de comandos, doble salto y launchpad.
@@ -73,3 +102,13 @@ permissions:
     default: op
   Solar.Vanish:
     default: op
+  Solar.Admin.Parkour:
+    default: op
+  Solar.Menu.Servers:
+    default: true
+  Solar.Menu.Cosmetics:
+    default: true
+  Solar.Menu.Profile:
+    default: true
+  Solar.Hotbar:
+    default: true

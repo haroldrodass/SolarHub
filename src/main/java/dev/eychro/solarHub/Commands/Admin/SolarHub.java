@@ -46,6 +46,43 @@ public class SolarHub implements CommandExecutor {
             sender.sendMessage(plugin.getFiles().getMessage("Reloaded"));
             return true;
         }
-        return false;
+
+        if (args.length >= 2 && args[0].equalsIgnoreCase("menu")) {
+            if (!sender.hasPermission("Solar.Admin")) {
+                sender.sendMessage(plugin.getFiles().getMessage("No-permission"));
+                return true;
+            }
+            if (!(sender instanceof org.bukkit.entity.Player player)) {
+                sender.sendMessage(plugin.getFiles().getMessage("OnlyPlayer"));
+                return true;
+            }
+            plugin.getMenuManager().openMenu(player, args[1]);
+            return true;
+        }
+
+        if (args.length >= 1 && args[0].equalsIgnoreCase("giveitems")) {
+            if (!sender.hasPermission("Solar.Admin")) {
+                sender.sendMessage(plugin.getFiles().getMessage("No-permission"));
+                return true;
+            }
+            org.bukkit.entity.Player target = null;
+            if (args.length >= 2) {
+                target = org.bukkit.Bukkit.getPlayer(args[1]);
+            } else if (sender instanceof org.bukkit.entity.Player p) {
+                target = p;
+            }
+
+            if (target == null) {
+                sender.sendMessage("§cJugador no encontrado.");
+                return true;
+            }
+
+            plugin.getHotbarManager().giveItems(target);
+            sender.sendMessage("§aObjetos de hotbar entregados a " + target.getName() + ".");
+            return true;
+        }
+
+        sender.sendMessage("§cUso: /solarhub <help|reload|menu <nombre>|giveitems [jugador]>");
+        return true;
     }
 }

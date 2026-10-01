@@ -39,6 +39,10 @@ public class Spawn implements CommandExecutor {
             return true;
         }
 
+        if (plugin.getParkourManager() != null && plugin.getParkourManager().isPlaying(player)) {
+            plugin.getParkourManager().cancelParkour(player);
+        }
+
         player.teleport(spawn);
         return true;
     }

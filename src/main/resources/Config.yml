@@ -132,3 +132,355 @@ Cooldowns:
     buildmode: 3
     setspawn: 5
     solarhub: 3
+    servers: 2
+    cosmetics: 2
+    profile: 2
+  HotbarItem: 0.3              # Cooldown para usar ítems de la hotbar (anti-spam de clicks)
+
+################################################
+#                                              #
+#                   Hotbar                     #
+#                                              #
+################################################
+# Objetos que se entregan al jugador al entrar al lobby.
+# Slots disponibles: 0 al 8 (la barra de acceso rápido).
+# Acciones disponibles:
+#   MENU:<nombre>      - Abre un menú de la sección Menus (ej: MENU:servers)
+#   COMMAND:<comando>  - Ejecuta un comando como el jugador (ej: COMMAND:spawn)
+#   CONSOLE:<comando>  - Ejecuta un comando desde la consola (ej: CONSOLE:say Hola)
+#   MESSAGE:<mensaje>  - Envía un mensaje directo al jugador
+#   VISIBILITY         - Alterna entre mostrar y ocultar jugadores
+#   CLOSE              - Cierra cualquier menú abierto
+
+Hotbar:
+  enabled: true
+  clear-inventory: true        # Limpiar el inventario del jugador antes de entregar los ítems
+  give-on-join: true           # Entregar ítems al conectarse al servidor
+  give-on-respawn: true        # Entregar ítems al reaparecer
+  give-on-world-change: true   # Entregar ítems al cambiar de mundo
+  sound: "ITEM_ARMOR_EQUIP_GENERIC" # Sonido al recibir los ítems (NONE para desactivar)
+  visibility-sound: "ENTITY_EXPERIENCE_ORB_PICKUP"
+
+  items:
+    selector:
+      slot: 0
+      material: "COMPASS"
+      name: "&b&lSelector de Modalidades &7(Click)"
+      lore:
+        - "&7Haz click derecho para abrir"
+        - "&7el menú de modalidades."
+      glow: true
+      action: "MENU:servers"
+
+    cosmetics:
+      slot: 2
+      material: "NETHER_STAR"
+      name: "&d&lCosméticos &7(Click)"
+      lore:
+        - "&7Haz click derecho para equipar"
+        - "&7efectos, partículas y sombreros."
+      glow: true
+      action: "MENU:cosmetics"
+
+    spawn:
+      slot: 4
+      material: "ENDER_PEARL"
+      name: "&6&lSpawn &7(Click)"
+      lore:
+        - "&7Haz click derecho para"
+        - "&7regresar al punto de inicio."
+      glow: false
+      action: "COMMAND:spawn"
+
+    visibility:
+      slot: 6
+      action: "VISIBILITY"
+      visible:
+        material: "LIME_DYE"
+        name: "&aJugadores: &lVISIBLES &7(Click)"
+        lore:
+          - "&7Haz click derecho para"
+          - "&7ocultar a todos los jugadores."
+        glow: true
+      hidden:
+        material: "GRAY_DYE"
+        name: "&cJugadores: &lOCULTOS &7(Click)"
+        lore:
+          - "&7Haz click derecho para"
+          - "&7hacer visibles a los jugadores."
+        glow: false
+
+    profile:
+      slot: 8
+      material: "PLAYER_HEAD"
+      name: "&e&lMi Perfil &7(Click)"
+      lore:
+        - "&7Haz click derecho para ver"
+        - "&7tu información y ajustes."
+      glow: false
+      action: "MENU:profile"
+
+################################################
+#                                              #
+#                    Menus                     #
+#                                              #
+################################################
+# Menús interactivos tipo cofre configurables.
+# Placeholders automáticos: %player%, %ping%, %world%, %fly_status%, %vanish_status%, %visibility_status%
+
+Menus:
+  # Selector de modalidades
+  servers:
+    title: "&8Selector de Modalidades"
+    rows: 3                    # Cantidad de filas (1 a 6)
+    sound: "BLOCK_CHEST_OPEN"
+    filler:
+      enabled: true
+      material: "GRAY_STAINED_GLASS_PANE"
+      name: " "
+    items:
+      survival:
+        slot: 11
+        material: "GRASS_BLOCK"
+        name: "&a&lSurvival Custom"
+        lore:
+          - "&7Explora nuestro mundo survival"
+          - "&7con protecciones, economía y misiones."
+          - ""
+          - "&e▶ Click para conectar"
+        action: "CONNECT:survival"
+        glow: true
+
+      skyblock:
+        slot: 13
+        material: "OAK_SAPLING"
+        name: "&b&lSkyBlock"
+        lore:
+          - "&7Construye tu isla flotante,"
+          - "&7sube de nivel y lidera el top."
+          - ""
+          - "&e▶ Click para conectar"
+        action: "CONNECT:skyblock"
+        glow: true
+
+      bedwars:
+        slot: 15
+        material: "RED_BED"
+        name: "&c&lBedWars"
+        lore:
+          - "&7Protege tu cama y elimina"
+          - "&7a los equipos rivales."
+          - ""
+          - "&e▶ Click para conectar"
+        action: "CONNECT:bedwars"
+        glow: true
+
+      close:
+        slot: 22
+        material: "BARRIER"
+        name: "&c&lCerrar"
+        lore:
+          - "&7Click para cerrar este menú."
+        action: "CLOSE"
+
+  # Menú de cosméticos
+  cosmetics:
+    title: "&8Menú de Cosméticos"
+    rows: 4
+    sound: "BLOCK_CHEST_OPEN"
+    filler:
+      enabled: true
+      material: "GRAY_STAINED_GLASS_PANE"
+      name: " "
+    items:
+      # Partículas
+      flame:
+        slot: 10
+        material: "BLAZE_POWDER"
+        name: "&6&lHalo de Fuego"
+        lore:
+          - "&7Un anillo de llamas sobre tu cabeza."
+          - ""
+          - "&eClick para activar / desactivar"
+        action: "COSMETIC_PARTICLE:flame"
+
+      cloud:
+        slot: 11
+        material: "FEATHER"
+        name: "&f&lNube Celestial"
+        lore:
+          - "&7Partículas de nube bajo tus pasos."
+          - ""
+          - "&eClick para activar / desactivar"
+        action: "COSMETIC_PARTICLE:cloud"
+
+      hearts:
+        slot: 12
+        material: "POPPY"
+        name: "&c&lAura de Corazones"
+        lore:
+          - "&7Corazones flotando a tu alrededor."
+          - ""
+          - "&eClick para activar / desactivar"
+        action: "COSMETIC_PARTICLE:hearts"
+
+      magic:
+        slot: 13
+        material: "ENCHANTING_TABLE"
+        name: "&9&lRunas Mágicas"
+        lore:
+          - "&7Runas galácticas que te rodean."
+          - ""
+          - "&eClick para activar / desactivar"
+        action: "COSMETIC_PARTICLE:magic"
+
+      portal:
+        slot: 14
+        material: "ENDER_EYE"
+        name: "&5&lAura del End"
+        lore:
+          - "&7Energía oscura de portal dimensional."
+          - ""
+          - "&eClick para activar / desactivar"
+        action: "COSMETIC_PARTICLE:portal"
+
+      totem:
+        slot: 15
+        material: "TOTEM_OF_UNDYING"
+        name: "&a&lChispas de Tótem"
+        lore:
+          - "&7Brillo legendario esmeralda y oro."
+          - ""
+          - "&eClick para activar / desactivar"
+        action: "COSMETIC_PARTICLE:totem"
+
+      # Efectos
+      speed:
+        slot: 16
+        material: "SUGAR"
+        name: "&b&lVelocidad II"
+        lore:
+          - "&7Corre velozmente por todo el hub."
+          - ""
+          - "&eClick para activar / desactivar"
+        action: "COSMETIC_SPEED"
+
+      jump:
+        slot: 19
+        material: "RABBIT_FOOT"
+        name: "&a&lSuper Salto II"
+        lore:
+          - "&7Salta mucho más alto en el hub."
+          - ""
+          - "&eClick para activar / desactivar"
+        action: "COSMETIC_JUMP"
+
+      # Sombreros
+      hat_glass:
+        slot: 21
+        material: "GLASS"
+        name: "&f&lCasco Espacial"
+        lore:
+          - "&7Usa un bloque de cristal en la cabeza."
+          - ""
+          - "&eClick para equipar / quitar"
+        action: "COSMETIC_HAT:GLASS"
+
+      hat_lantern:
+        slot: 22
+        material: "SEA_LANTERN"
+        name: "&b&lLinterna Marina"
+        lore:
+          - "&7Ilumina tu cabeza con una linterna."
+          - ""
+          - "&eClick para equipar / quitar"
+        action: "COSMETIC_HAT:SEA_LANTERN"
+
+      hat_pumpkin:
+        slot: 23
+        material: "CARVED_PUMPKIN"
+        name: "&6&lCalabaza Tallada"
+        lore:
+          - "&7El clásico sombrero de calabaza."
+          - ""
+          - "&eClick para equipar / quitar"
+        action: "COSMETIC_HAT:CARVED_PUMPKIN"
+
+      hat_diamond:
+        slot: 24
+        material: "DIAMOND_BLOCK"
+        name: "&b&lBloque de Diamante"
+        lore:
+          - "&7Demuestra tu poder y lujo."
+          - ""
+          - "&eClick para equipar / quitar"
+        action: "COSMETIC_HAT:DIAMOND_BLOCK"
+
+      # Limpiar
+      clear:
+        slot: 31
+        material: "BARRIER"
+        name: "&c&lQuitar Todos los Cosméticos"
+        lore:
+          - "&7Click para remover todos tus cosméticos activos."
+        action: "COSMETIC_CLEAR"
+
+  # Menú de perfil de jugador
+  profile:
+    title: "&8Perfil de &6%player%"
+    rows: 3
+    sound: "ITEM_ARMOR_EQUIP_GENERIC"
+    filler:
+      enabled: true
+      material: "GRAY_STAINED_GLASS_PANE"
+      name: " "
+    items:
+      head:
+        slot: 10
+        material: "PLAYER_HEAD"
+        name: "&e&l%player%"
+        lore:
+          - "&7Ping: &a%ping% ms"
+          - "&7Mundo: &f%world%"
+          - "&7Modo Vuelo: &f%fly_status%"
+          - "&7Modo Invisible: &f%vanish_status%"
+          - "&7Jugadores: &f%visibility_status%"
+        action: ""
+
+      fly:
+        slot: 12
+        material: "FEATHER"
+        name: "&b&lAlternar Modo Vuelo"
+        lore:
+          - "&7Estado actual: %fly_status%"
+          - ""
+          - "&eClick para alternar"
+        action: "COMMAND:fly"
+
+      visibility:
+        slot: 14
+        material: "ENDER_EYE"
+        name: "&a&lVisibilidad de Jugadores"
+        lore:
+          - "&7Estado actual: %visibility_status%"
+          - ""
+          - "&eClick para alternar"
+        action: "VISIBILITY"
+
+      spawn:
+        slot: 16
+        material: "ENDER_PEARL"
+        name: "&6&lIr al Spawn"
+        lore:
+          - "&7Teletranspórtate al punto central."
+          - ""
+          - "&eClick para viajar"
+        action: "COMMAND:spawn"
+
+      close:
+        slot: 22
+        material: "BARRIER"
+        name: "&c&lCerrar"
+        lore:
+          - "&7Click para salir del menú."
+        action: "CLOSE"

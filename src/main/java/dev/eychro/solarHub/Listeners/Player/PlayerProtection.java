@@ -26,6 +26,16 @@ public class PlayerProtection implements Listener {
         e.setCancelled(true);
 
         if (e.getCause() == EntityDamageEvent.DamageCause.VOID) {
+            if (plugin.getParkourManager() != null && plugin.getParkourManager().isPlaying(player)) {
+                Location cp = plugin.getParkourManager().getCheckpoint(player);
+                if (cp != null) {
+                    player.setFallDistance(0);
+                    player.teleport(cp);
+                    player.sendMessage(plugin.getFiles().getMessage("ParkourFall"));
+                    return;
+                }
+            }
+
             Location spawn = JoinListener.getSpawn(plugin);
             if (spawn == null) {
                 spawn = player.getWorld().getSpawnLocation();
