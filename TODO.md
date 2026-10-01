@@ -21,7 +21,7 @@
 - [ ] Scoreboard: animated title and per-player placeholders
 - [ ] Tablist: header/footer animation and rank-based sorting
 - [x] World protection: toggles for weather, time, mob spawning, fire spread, etc.
-- [ ] Build mode: per-player toggle command with a visible indicator (actionbar)
+- [x] Build mode: per-player toggle command with a visible indicator (actionbar)
 
 ## 🆕 New features
 - [x] Hotbar items: configurable join items (selector, cosmetics, profile, etc.)
