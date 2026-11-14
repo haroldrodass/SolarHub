@@ -77,6 +77,12 @@ commands:
     permission: Solar.Admin.Parkour
 
 permissions:
+  Solar.Help:
+    description: Permite ver la ayuda de SolarHub.
+    default: true
+  Solar.Reload:
+    description: Permite recargar SolarHub.
+    default: op
   Solar.CooldownBypass:
     description: Permite ignorar todos los cooldowns de comandos, doble salto y launchpad.
     default: op

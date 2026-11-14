@@ -18,7 +18,9 @@ Configurable hub/lobby plugin for **Paper 26.3**: spawn, server selector, double
 - 🦘 **Double jump**: configurable extra jump for players.
 - 🚀 **Launchpads**: launch players into the air by stepping on a pad.
 - 📊 **Scoreboard**: custom sidebar for the hub.
-- 📋 **Tablist**: custom header/footer for the player list.
+- 📋 **Tablist**: animated header/footer and optional PlaceholderAPI rank prefix.
+- 💬 **Chat**: configurable chat format and anti-spam cooldown.
+- 🎆 **Join effects**: optional title, particles and fireworks on join.
 - 🛡️ **World protection**: prevents players from modifying or damaging the hub.
 - 🎒 **Item protection**: prevents moving or dropping the hub items.
 - 🛠️ **Build mode**: lets authorized staff build in the hub without turning protection off for everyone.
@@ -88,7 +90,12 @@ The compiled plugin is created in `target/` (`SolarHub-0.1-BETA.jar`). The proje
 
 | Command   | Description               | Permission     |
 |-----------|---------------------------|----------------|
-| `/reload` | Reloads the plugin config | `Solar.Reload` |
+| `/solarhub help` | Shows the plugin help | `Solar.Help` |
+| `/solarhub reload` | Reloads the plugin config | `Solar.Reload` |
+| `/spawn` | Teleports to the hub spawn | `Solar.Spawn` |
+| `/servers` | Opens the server selector | `Solar.Menu.Servers` |
+| `/cosmetics` | Opens the cosmetics menu | `Solar.Menu.Cosmetics` |
+| `/profile` | Opens the player profile | `Solar.Menu.Profile` |
 
 ---
 
