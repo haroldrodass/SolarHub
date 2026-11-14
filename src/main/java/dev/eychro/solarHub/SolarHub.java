@@ -36,10 +36,12 @@ public final class SolarHub extends JavaPlugin {
     private Announcements announcements;
     private ParkourManager parkourManager;
     private ScoreboardManager scoreboardManager;
+    private TablistManager tablistManager;
+    private ServerStatusManager serverStatusManager;
 
     @Override
     public void onEnable() {
-        Files();
+        initializeFiles();
 
         getServer().getMessenger().registerOutgoingPluginChannel(this, "BungeeCord");
 
@@ -52,6 +54,9 @@ public final class SolarHub extends JavaPlugin {
         buildMode = new BuildMode(this);
         parkourManager = new ParkourManager(this);
         scoreboardManager = new ScoreboardManager(this);
+        tablistManager = new TablistManager(this);
+        serverStatusManager = new ServerStatusManager(this);
+        getServer().getMessenger().registerIncomingPluginChannel(this, "BungeeCord", serverStatusManager);
 
         if (org.bukkit.Bukkit.getPluginManager().isPluginEnabled("PlaceholderAPI")) {
             new dev.eychro.solarHub.Utils.PlaceholderAPIHook(this).register();
@@ -61,8 +66,8 @@ public final class SolarHub extends JavaPlugin {
         announcements = new Announcements(this);
         announcements.Announce();
 
-        Commands();
-        Listeners();
+        registerCommands();
+        registerListeners();
     }
 
     @Override
@@ -71,7 +76,9 @@ public final class SolarHub extends JavaPlugin {
         if (cosmeticsManager != null) cosmeticsManager.stopTask();
         if (parkourManager != null) parkourManager.stopTask();
         if (scoreboardManager != null) scoreboardManager.stopTask();
+        if (tablistManager != null) tablistManager.stopTask();
         getServer().getMessenger().unregisterOutgoingPluginChannel(this, "BungeeCord");
+        getServer().getMessenger().unregisterIncomingPluginChannel(this, "BungeeCord");
     }
 
     private void registerListener(Listener listener) {
@@ -86,12 +93,13 @@ public final class SolarHub extends JavaPlugin {
         }
     }
 
-    public void Listeners() {
+    private void registerListeners() {
         registerListener(new BlockInteractions(this, buildMode));
         registerListener(new ItemProtection(this, buildMode));
         registerListener(new PlayerProtection(this));
         registerListener(new JoinListener(this));
         registerListener(new JoinMessage(this));
+        registerListener(new ChatListener(this));
         registerListener(new MobsSpawn());
         registerListener(new DoubleJump(this));
         registerListener(new LaunchPad(this));
@@ -107,7 +115,7 @@ public final class SolarHub extends JavaPlugin {
         registerListener(vanish);
     }
 
-    public void Commands() {
+    private void registerCommands() {
         registerCommand("SolarHub", new dev.eychro.solarHub.Commands.Admin.SolarHub(this));
         registerCommand("Discord", new Discord(this));
         registerCommand("Website", new Website(this));
@@ -127,9 +135,11 @@ public final class SolarHub extends JavaPlugin {
     public void reloadAll() {
         files.reloadAll();
         announcements.Announce();
+        scoreboardManager.reload();
+        tablistManager.reload();
     }
 
-    public void Files() {
+    private void initializeFiles() {
         files = new FileManager(this);
     }
 
@@ -173,6 +183,14 @@ public final class SolarHub extends JavaPlugin {
 
     public ScoreboardManager getScoreboardManager() {
         return scoreboardManager;
+    }
+
+    public TablistManager getTablistManager() {
+        return tablistManager;
+    }
+
+    public ServerStatusManager getServerStatusManager() {
+        return serverStatusManager;
     }
 
     public Vanish getVanish() {
