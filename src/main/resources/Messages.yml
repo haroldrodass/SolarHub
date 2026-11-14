@@ -223,6 +223,9 @@ NoCosmeticsActive: "&eNo tienes ningún cosmético activo actualmente."
 
 Scoreboard:
   title: "&6&lSolar Hub"
+  title-frames:
+    - "&6&lSolar Hub"
+    - "&e&lSolar Hub"
   lines:
     - "&7&m                        "
     - "&fJugador: &e%player%"
@@ -233,4 +236,14 @@ Scoreboard:
     - "&fParkour: %solarhub_parkour_playing%"
     - "&7&m                        "
 
+Chat:
+  format: "&7%player% &8» &f%message%"
+
+Tablist:
+  header-frames:
+    - "&6&lSolarHub &8| &fLobby"
+    - "&e&lSolarHub &8| &fLobby"
+  footer-frames:
+    - "&7Online: &f%online%"
+    - "&7Visita nuestra comunidad"
 

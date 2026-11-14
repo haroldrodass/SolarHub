@@ -39,6 +39,7 @@ public class ScoreboardManager {
 
     private final SolarHub plugin;
     private final Map<UUID, org.bukkit.scoreboard.Scoreboard> scoreboards = new HashMap<>();
+    private int titleFrame;
     private BukkitTask task;
 
     private final boolean hasPAPI;
@@ -58,9 +59,9 @@ public class ScoreboardManager {
 
     public void showScoreboard(Player player) {
         if (!isEnabled()) return;
-        org.bukkit.scoreboard.Scoreboard sb = buildScoreboard(player);
-        scoreboards.put(player.getUniqueId(), sb);
-        player.setScoreboard(sb);
+        org.bukkit.scoreboard.Scoreboard scoreboard = buildScoreboard(player);
+        scoreboards.put(player.getUniqueId(), scoreboard);
+        player.setScoreboard(scoreboard);
     }
 
     public void removeScoreboard(Player player) {
@@ -78,14 +79,15 @@ public class ScoreboardManager {
 
     private org.bukkit.scoreboard.Scoreboard buildScoreboard(Player player) {
         org.bukkit.scoreboard.Scoreboard sb = Bukkit.getScoreboardManager().getNewScoreboard();
-        String title = colorize(player, getTitle());
-        // Objective display name max 32 chars (legacy) — trim to be safe
-        String safeTitle = ChatColor.stripColor(title).length() > 32
-                ? title.substring(0, 32) : title;
-
-        Objective obj = sb.registerNewObjective(OBJECTIVE_NAME, "dummy", title);
+        Objective obj = sb.registerNewObjective(
+                OBJECTIVE_NAME,
+                "dummy",
+                net.kyori.adventure.text.serializer.legacy.LegacyComponentSerializer
+                        .legacySection().deserialize(colorize(player, getTitle()))
+        );
         obj.setDisplaySlot(DisplaySlot.SIDEBAR);
         obj.numberFormat(io.papermc.paper.scoreboard.numbers.NumberFormat.blank());
+        updateLines(player, sb, obj);
 
         return sb;
     }
@@ -100,13 +102,42 @@ public class ScoreboardManager {
         String title = colorize(player, getTitle());
         obj.displayName(net.kyori.adventure.text.serializer.legacy.LegacyComponentSerializer
                 .legacySection().deserialize(title));
-
         obj.numberFormat(io.papermc.paper.scoreboard.numbers.NumberFormat.blank());
-
+        updateLines(player, sb, obj);
     }
 
+    private void updateLines(Player player, org.bukkit.scoreboard.Scoreboard scoreboard, Objective objective) {
+        for (String entry : new ArrayList<>(scoreboard.getEntries())) {
+            scoreboard.resetScores(entry);
+        }
+
+        List<String> lines = buildLines(player);
+        int score = lines.size();
+        for (String line : lines) {
+            String entry = uniqueEntry(line, score, scoreboard);
+            objective.getScore(entry).setScore(score--);
+        }
+    }
+
+    private String uniqueEntry(String line, int index, org.bukkit.scoreboard.Scoreboard scoreboard) {
+        String value = line == null ? "" : line;
+        if (value.length() > 40) {
+            value = value.substring(0, 40);
+        }
+
+        String suffix = ChatColor.values()[index % ChatColor.values().length].toString();
+        String entry = value + suffix;
+        while (scoreboard.getEntries().contains(entry)) {
+            entry += ChatColor.RESET;
+        }
+        return entry;
+    }
 
     private String getTitle() {
+        List<String> frames = plugin.getFiles().getMessages().getStringList("Scoreboard.title-frames");
+        if (!frames.isEmpty()) {
+            return frames.get(titleFrame % frames.size());
+        }
         return plugin.getFiles().getMessages().getString("Scoreboard.title", "&6&lSolar Hub");
     }
 
@@ -139,19 +170,6 @@ public class ScoreboardManager {
         return ChatColor.translateAlternateColorCodes('&', text);
     }
 
-    private String colorEntryPad(int score, org.bukkit.scoreboard.Scoreboard sb) {
-        String[] colors = {
-                "§0", "§1", "§2", "§3", "§4", "§5", "§6", "§7",
-                "§8", "§9", "§a", "§b", "§c", "§d", "§e", "§f"
-        };
-        int idx = (score - 1) % colors.length;
-        String base = colors[idx] + "§r";
-        while (sb.getEntries().contains(base)) {
-            base += "§r";
-        }
-        return base;
-    }
-
 
     private void startTask() {
         if (task != null) task.cancel();
@@ -159,6 +177,7 @@ public class ScoreboardManager {
         task = new BukkitRunnable() {
             @Override
             public void run() {
+                titleFrame++;
                 updateAll();
             }
         }.runTaskTimer(plugin, interval, interval);

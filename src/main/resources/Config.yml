@@ -78,6 +78,15 @@ Welcome-Title:
     Duration: 1       # Cuánto tiempo permanece visible por completo.
     fading: 1       # Cuánto tarda en desvanecerse (fade out).
 
+Welcome-Effects:
+  enabled: true
+  firework:
+    enabled: true
+    detonate-after: 2
+
+Chat:
+  enabled: true
+
 # Doble salto: el jugador presiona espacio dos veces en el aire para
 # impulsarse de nuevo.
 DoubleJump:
@@ -122,6 +131,11 @@ Scoreboard:
   enabled: true
   update-interval: 20   # ticks entre actualizaciones (20 ticks = 1 segundo)
 
+Tablist:
+  enabled: true
+  update-interval: 20
+  rank-prefix: "%luckperms_prefix% "
+
 ################################################
 #                                              #
 #                 Cooldowns                    #
@@ -154,6 +168,7 @@ Cooldowns:
     servers: 2
     cosmetics: 2
     profile: 2
+  chat: 2
   HotbarItem: 0.3              # Cooldown para usar ítems de la hotbar (anti-spam de clicks)
 
 ################################################
@@ -265,9 +280,11 @@ Menus:
         lore:
           - "&7Explora nuestro mundo survival"
           - "&7con protecciones, economía y misiones."
+          - "&7Estado: &f%server_status% &8| &7Jugadores: &f%server_players%"
           - ""
           - "&e▶ Click para conectar"
         action: "CONNECT:survival"
+        max-players: 100
         glow: true
 
       skyblock:
@@ -277,9 +294,11 @@ Menus:
         lore:
           - "&7Construye tu isla flotante,"
           - "&7sube de nivel y lidera el top."
+          - "&7Estado: &f%server_status% &8| &7Jugadores: &f%server_players%"
           - ""
           - "&e▶ Click para conectar"
         action: "CONNECT:skyblock"
+        max-players: 100
         glow: true
 
       bedwars:
@@ -289,9 +308,11 @@ Menus:
         lore:
           - "&7Protege tu cama y elimina"
           - "&7a los equipos rivales."
+          - "&7Estado: &f%server_status% &8| &7Jugadores: &f%server_players%"
           - ""
           - "&e▶ Click para conectar"
         action: "CONNECT:bedwars"
+        max-players: 100
         glow: true
 
       close:
