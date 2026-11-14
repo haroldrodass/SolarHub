@@ -31,6 +31,19 @@ public class MenuManager {
         this.plugin = plugin;
     }
 
+    private String replaceServerPlaceholders(String text, String action, Player player, int maxPlayers) {
+        if (action == null || !(action.startsWith("CONNECT:") || action.startsWith("SERVER:"))) {
+            return text;
+        }
+
+        String serverName = action.substring(action.indexOf(':') + 1).trim();
+        plugin.getServerStatusManager().requestPlayerCount(player, serverName);
+        int playerCount = plugin.getServerStatusManager().getPlayerCount(serverName);
+        return text
+                .replace("%server_players%", playerCount < 0 ? "?" : String.valueOf(playerCount))
+                .replace("%server_status%", plugin.getServerStatusManager().getStatus(serverName, maxPlayers));
+    }
+
     public boolean menuExists(String menuId) {
         return plugin.getFiles().getConfig().isConfigurationSection("Menus." + menuId.toLowerCase());
     }
@@ -52,11 +65,13 @@ public class MenuManager {
         int rows = Math.max(1, Math.min(6, section.getInt("rows", 3)));
         int size = rows * 9;
 
+        MenuHolder holder = new MenuHolder(lowerId);
         Inventory inv = Bukkit.createInventory(
-                new MenuHolder(lowerId),
+                holder,
                 size,
                 LegacyComponentSerializer.legacySection().deserialize(formattedTitle)
         );
+        holder.setInventory(inv);
 
         // Decoración de fondo (Filler)
         if (section.getBoolean("filler.enabled", false)) {
@@ -121,7 +136,9 @@ public class MenuManager {
         // Nombre
         String rawName = sec.getString("name", "");
         if (!rawName.isEmpty()) {
-            meta.setDisplayName(FileManager.color(replacePlaceholders(rawName, player)));
+            meta.setDisplayName(FileManager.color(replaceServerPlaceholders(
+                    replacePlaceholders(rawName, player), action, player, sec.getInt("max-players", -1)
+            )));
         }
 
         // Lore
@@ -129,7 +146,9 @@ public class MenuManager {
         if (!rawLore.isEmpty()) {
             List<String> lore = new ArrayList<>();
             for (String line : rawLore) {
-                lore.add(FileManager.color(replacePlaceholders(line, player)));
+                lore.add(FileManager.color(replaceServerPlaceholders(
+                        replacePlaceholders(line, player), action, player, sec.getInt("max-players", -1)
+                )));
             }
             meta.setLore(lore);
         }
