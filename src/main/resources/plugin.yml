@@ -53,6 +53,12 @@ commands:
     aliases: [selector]
     permission: Solar.Menu.Servers
 
+  lobbies:
+    description: Abre el selector de lobbies.
+    usage: /<command>
+    aliases: [lobbyselector, lobbys, hubselector]
+    permission: Solar.Menu.Lobbies
+
   cosmetics:
     description: Abre el menú de cosméticos del lobby.
     usage: /<command>
@@ -112,9 +118,14 @@ permissions:
     default: op
   Solar.Menu.Servers:
     default: true
+  Solar.Menu.Lobbies:
+    default: true
   Solar.Menu.Cosmetics:
     default: true
   Solar.Menu.Profile:
     default: true
+  Solar.Tablist.Staff:
+    description: Permite aparecer en el grupo de staff del layout de tablist.
+    default: op
   Solar.Hotbar:
     default: true

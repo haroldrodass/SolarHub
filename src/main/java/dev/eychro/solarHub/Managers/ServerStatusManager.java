@@ -9,6 +9,7 @@ import org.bukkit.plugin.messaging.PluginMessageListener;
 
 import java.util.Map;
 import java.util.Set;
+import java.util.UUID;
 import java.util.concurrent.ConcurrentHashMap;
 
 public final class ServerStatusManager implements PluginMessageListener {
@@ -16,6 +17,7 @@ public final class ServerStatusManager implements PluginMessageListener {
     private final SolarHub plugin;
     private final Map<String, Integer> playerCounts = new ConcurrentHashMap<>();
     private final Set<String> knownServers = ConcurrentHashMap.newKeySet();
+    private final Map<UUID, String> currentServers = new ConcurrentHashMap<>();
 
     public ServerStatusManager(SolarHub plugin) {
         this.plugin = plugin;
@@ -27,6 +29,14 @@ public final class ServerStatusManager implements PluginMessageListener {
         }
 
         sendRequest(player, "PlayerCount", serverName);
+    }
+
+    public void requestCurrentServer(Player player) {
+        sendRequest(player, "GetServer", null);
+    }
+
+    public String getCurrentServer(Player player) {
+        return currentServers.get(player.getUniqueId());
     }
 
     public int getPlayerCount(String serverName) {
@@ -55,7 +65,9 @@ public final class ServerStatusManager implements PluginMessageListener {
     private void sendRequest(Player player, String subChannel, String serverName) {
         ByteArrayDataOutput output = ByteStreams.newDataOutput();
         output.writeUTF(subChannel);
-        output.writeUTF(serverName);
+        if (serverName != null) {
+            output.writeUTF(serverName);
+        }
         player.sendPluginMessage(plugin, "BungeeCord", output.toByteArray());
     }
 
@@ -78,6 +90,12 @@ public final class ServerStatusManager implements PluginMessageListener {
                 if (!server.isBlank()) {
                     knownServers.add(server.toLowerCase());
                 }
+            }
+        } else if ("GetServer".equalsIgnoreCase(subChannel)) {
+            String currentServer = input.readUTF();
+            String previousServer = currentServers.put(player.getUniqueId(), currentServer.toLowerCase());
+            if (!currentServer.equalsIgnoreCase(previousServer == null ? "" : previousServer)) {
+                plugin.getMenuManager().refreshMenuIfOpen(player, "lobbies");
             }
         }
     }

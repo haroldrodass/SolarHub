@@ -60,6 +60,10 @@ public class MenuManager {
         ConfigurationSection section = config.getConfigurationSection("Menus." + lowerId);
         if (section == null) return;
 
+        if (section.getBoolean("current-lobby.enabled", false)) {
+            plugin.getServerStatusManager().requestCurrentServer(player);
+        }
+
         String rawTitle = section.getString("title", "&8Menú");
         String formattedTitle = FileManager.color(rawTitle.replace("%player%", player.getName()));
         int rows = Math.max(1, Math.min(6, section.getInt("rows", 3)));
@@ -102,7 +106,7 @@ public class MenuManager {
                 int slot = itemSec.getInt("slot", 0);
                 if (slot < 0 || slot >= size) continue;
 
-                ItemStack item = buildMenuItem(player, itemSec);
+                ItemStack item = buildMenuItem(player, itemSec, section);
                 if (item != null) {
                     inv.setItem(slot, item);
                 }
@@ -119,14 +123,28 @@ public class MenuManager {
         player.openInventory(inv);
     }
 
-    private ItemStack buildMenuItem(Player player, ConfigurationSection sec) {
+    public void refreshMenuIfOpen(Player player, String menuId) {
+        if (player.getOpenInventory().getTopInventory().getHolder() instanceof MenuHolder holder
+                && holder.getMenuId().equalsIgnoreCase(menuId)) {
+            openMenu(player, menuId);
+        }
+    }
+
+    private ItemStack buildMenuItem(Player player, ConfigurationSection sec, ConfigurationSection menuSec) {
         String matName = sec.getString("material", "STONE");
+        if (isCurrentLobby(player, sec, menuSec)) {
+            matName = menuSec.getString("current-lobby.material", matName);
+        }
         Material mat = Material.matchMaterial(matName);
         if (mat == null) mat = Material.STONE;
 
         ItemStack item = new ItemStack(mat);
         ItemMeta meta = item.getItemMeta();
         if (meta == null) return item;
+
+        // Leer la acción primero, para usarla en los placeholders
+        String action = sec.getString("action", "");
+        int maxPlayers = sec.getInt("max-players", -1);
 
         // Soporte para cabeza del jugador
         if (mat == Material.PLAYER_HEAD && meta instanceof SkullMeta skullMeta) {
@@ -137,7 +155,7 @@ public class MenuManager {
         String rawName = sec.getString("name", "");
         if (!rawName.isEmpty()) {
             meta.setDisplayName(FileManager.color(replaceServerPlaceholders(
-                    replacePlaceholders(rawName, player), action, player, sec.getInt("max-players", -1)
+                    replacePlaceholders(rawName, player), action, player, maxPlayers
             )));
         }
 
@@ -147,7 +165,7 @@ public class MenuManager {
             List<String> lore = new ArrayList<>();
             for (String line : rawLore) {
                 lore.add(FileManager.color(replaceServerPlaceholders(
-                        replacePlaceholders(line, player), action, player, sec.getInt("max-players", -1)
+                        replacePlaceholders(line, player), action, player, maxPlayers
                 )));
             }
             meta.setLore(lore);
@@ -163,7 +181,6 @@ public class MenuManager {
         }
 
         // Acción almacenada en PDC
-        String action = sec.getString("action", "");
         if (!action.isEmpty()) {
             NamespacedKey key = new NamespacedKey(plugin, ACTION_PDC_KEY);
             meta.getPersistentDataContainer().set(key, PersistentDataType.STRING, action);
@@ -172,6 +189,21 @@ public class MenuManager {
         meta.addItemFlags(ItemFlag.HIDE_ATTRIBUTES);
         item.setItemMeta(meta);
         return item;
+    }
+
+    private boolean isCurrentLobby(Player player, ConfigurationSection itemSec, ConfigurationSection menuSec) {
+        if (!menuSec.getBoolean("current-lobby.enabled", false)) {
+            return false;
+        }
+
+        String action = itemSec.getString("action", "");
+        if (!(action.startsWith("CONNECT:") || action.startsWith("SERVER:"))) {
+            return false;
+        }
+
+        String targetServer = action.substring(action.indexOf(':') + 1).trim();
+        String currentServer = plugin.getServerStatusManager().getCurrentServer(player);
+        return currentServer != null && currentServer.equalsIgnoreCase(targetServer);
     }
 
     public String replacePlaceholders(String text, Player player) {

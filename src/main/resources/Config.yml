@@ -131,10 +131,100 @@ Scoreboard:
   enabled: true
   update-interval: 20   # ticks entre actualizaciones (20 ticks = 1 segundo)
 
+################################################
+#                                              #
+#                   Tablist                    #
+#                                              #
+################################################
+# MODO NORMAL (layout.enabled: false):
+#   Lista normal de jugadores + header/footer.
+# MODO LAYOUT (layout.enabled: true):
+#   Cuadrícula fija de 4 columnas x 20 filas. NO se muestran jugadores,
+#   solo los textos que pongas en "fixed-slots".
+#
+# Placeholders: %player% %rank% %ping% %world% %online% %max_players%
+#               %server_players_<servidor>%  (jugadores de un servidor Bungee)
+#               + cualquier placeholder de PlaceholderAPI.
+# Colores con "&".
+
 Tablist:
   enabled: true
-  update-interval: 20
+  update-interval: 20          # ticks entre actualizaciones (20 = 1 segundo)
+
+  # ---------- Modo normal ----------
   rank-prefix: "%luckperms_prefix% "
+  # Formato del nombre en la lista. Acepta %rank_prefix% y %player%.
+  # Si se deja vacío usa: prefijo + nombre.
+  player-list-name: "%rank_prefix%%player%"
+
+  # Cada línea del header/footer es una línea del tab.
+  # Para animar usa header-frames / footer-frames (cada elemento = un frame completo).
+  header:
+    - ""
+    - "&6&lSOLAR&f&lHUB &8» &e&lLOBBY"
+    - "&7Jugadores: &e%online%&7/&f%max_players%"
+    - ""
+  footer:
+    - ""
+    - "&6tienda.solarhub.net &8| &9discord.solarhub.net"
+    - ""
+  header-frames: []
+  footer-frames: []
+
+  # ---------- Modo layout ----------
+  layout:
+    enabled: true
+    direction: COLUMNS          # COLUMNS = se llena de arriba a abajo | ROWS = de izquierda a derecha
+
+    # Skin de TODAS las cabezas del layout (slots vacíos y con texto).
+    #   builtin            -> skin negra integrada (recomendado)
+    #   hash:<hash>        -> skin alojada en textures.minecraft.net (solo el hash, 64 caracteres)
+    #   url:<url>          -> URL completa de textures.minecraft.net
+    #   texture:<valor>|<firma> -> textura firmada (value|signature)
+    default-skin: "builtin"
+
+    # Latencia (ping) mostrada en los slots. 1000 = barra roja/vacía.
+    empty-slot-ping-value: 1000
+
+    layouts:
+      default:
+        slot-count: 80
+        # Formato de cada línea:  "slot|texto"   (opcional: "slot|texto|skin|ping")
+        #
+        # Slots por columna (fila 1 = arriba):
+        #   Columna 1:  1 - 20     Columna 2: 21 - 40
+        #   Columna 3: 41 - 60     Columna 4: 61 - 80
+        fixed-slots:
+          # ── Columna 1: Tu perfil ──────────────────────
+          - "2|&6&lTU PERFIL"
+          - "3|&8&m              "
+          - "5|&7Jugador: &b%player%"
+          - "6|&7Rango: &f%rank%"
+          - "7|&7Ping: &a%ping%ms"
+          - "8|&7Mundo: &f%world%"
+
+          # ── Columna 2: Modalidades ────────────────────
+          - "22|&6&lMODALIDADES"
+          - "23|&8&m              "
+          - "25|&a&lSurvival"
+          - "26|&7Online: &f%server_players_survival%"
+          - "28|&b&lSkyBlock"
+          - "29|&7Online: &f%server_players_skyblock%"
+          - "31|&c&lBedWars"
+          - "32|&7Online: &f%server_players_bedwars%"
+
+          # ── Columna 3: Servidor ───────────────────────
+          - "42|&6&lSERVIDOR"
+          - "43|&8&m              "
+          - "45|&7Online: &e%online%&7/&f%max_players%"
+          - "46|&7Lobby: &e#1"
+
+          # ── Columna 4: Comunidad ──────────────────────
+          - "62|&6&lCOMUNIDAD"
+          - "63|&8&m              "
+          - "65|&7Web: &esolarhub.net"
+          - "66|&9Discord: &f/discord"
+          - "67|&eTienda: &f/tienda"
 
 ################################################
 #                                              #
@@ -166,6 +256,7 @@ Cooldowns:
     setspawn: 5
     solarhub: 3
     servers: 2
+    lobbies: 2
     cosmetics: 2
     profile: 2
   chat: 2
@@ -197,7 +288,7 @@ Hotbar:
 
   items:
     selector:
-      slot: 0
+      slot: 4
       material: "COMPASS"
       name: "&b&lSelector de Modalidades &7(Click)"
       lore:
@@ -205,6 +296,16 @@ Hotbar:
         - "&7el menú de modalidades."
       glow: true
       action: "MENU:servers"
+
+    lobbies:
+      slot: 8
+      material: "IRON_DOOR"
+      name: "&e&lSelector de Lobbys &7(Click)"
+      lore:
+        - "&7Elige un lobby para jugar"
+        - "&7con la comunidad."
+      glow: true
+      action: "MENU:lobbies"
 
     cosmetics:
       slot: 2
@@ -217,7 +318,7 @@ Hotbar:
       action: "MENU:cosmetics"
 
     spawn:
-      slot: 4
+      slot: 0
       material: "ENDER_PEARL"
       name: "&6&lSpawn &7(Click)"
       lore:
@@ -226,26 +327,26 @@ Hotbar:
       glow: false
       action: "COMMAND:spawn"
 
-    visibility:
-      slot: 6
-      action: "VISIBILITY"
-      visible:
-        material: "LIME_DYE"
-        name: "&aJugadores: &lVISIBLES &7(Click)"
-        lore:
-          - "&7Haz click derecho para"
-          - "&7ocultar a todos los jugadores."
-        glow: true
-      hidden:
-        material: "GRAY_DYE"
-        name: "&cJugadores: &lOCULTOS &7(Click)"
-        lore:
-          - "&7Haz click derecho para"
-          - "&7hacer visibles a los jugadores."
-        glow: false
+    #    visibility:
+    #      slot: 6
+    #      action: "VISIBILITY"
+    #      visible:
+    #        material: "LIME_DYE"
+    #        name: "&aJugadores: &lVISIBLES &7(Click)"
+    #        lore:
+    #          - "&7Haz click derecho para"
+    #          - "&7ocultar a todos los jugadores."
+    #        glow: true
+    #      hidden:
+    #        material: "GRAY_DYE"
+    #        name: "&cJugadores: &lOCULTOS &7(Click)"
+    #        lore:
+    #          - "&7Haz click derecho para"
+    #          - "&7hacer visibles a los jugadores."
+    #        glow: false
 
     profile:
-      slot: 8
+      slot: 6
       material: "PLAYER_HEAD"
       name: "&e&lMi Perfil &7(Click)"
       lore:
@@ -263,6 +364,218 @@ Hotbar:
 # Placeholders automáticos: %player%, %ping%, %world%, %fly_status%, %vanish_status%, %visibility_status%
 
 Menus:
+  # Selector de lobbies
+  lobbies:
+    title: "&8Lobby Principal Selector"
+    rows: 2
+    sound: "BLOCK_CHEST_OPEN"
+    current-lobby:
+      enabled: true
+      material: "EMERALD_BLOCK"
+    filler:
+      enabled: true
+      material: "GRAY_STAINED_GLASS_PANE"
+      name: " "
+    items:
+      lobby_1:
+        slot: 0
+        material: "SMOOTH_STONE"
+        name: "&f&lLobby 1"
+        lore:
+          - "&7Estado: &f%server_status%"
+          - "&7Jugadores: &f%server_players%"
+          - ""
+          - "&e▶ Click para conectar"
+        action: "CONNECT:lobby-1"
+        max-players: 100
+      lobby_2:
+        slot: 1
+        material: "SMOOTH_STONE"
+        name: "&f&lLobby 2"
+        lore:
+          - "&7Estado: &f%server_status%"
+          - "&7Jugadores: &f%server_players%"
+          - ""
+          - "&e▶ Click para conectar"
+        action: "CONNECT:lobby-2"
+        max-players: 100
+      lobby_3:
+        slot: 2
+        material: "SMOOTH_STONE"
+        name: "&f&lLobby 3"
+        lore:
+          - "&7Estado: &f%server_status%"
+          - "&7Jugadores: &f%server_players%"
+          - ""
+          - "&e▶ Click para conectar"
+        action: "CONNECT:lobby-3"
+        max-players: 100
+      lobby_4:
+        slot: 3
+        material: "SMOOTH_STONE"
+        name: "&f&lLobby 4"
+        lore:
+          - "&7Estado: &f%server_status%"
+          - "&7Jugadores: &f%server_players%"
+          - ""
+          - "&e▶ Click para conectar"
+        action: "CONNECT:lobby-4"
+        max-players: 100
+      lobby_5:
+        slot: 4
+        material: "SMOOTH_STONE"
+        name: "&f&lLobby 5"
+        lore:
+          - "&7Estado: &f%server_status%"
+          - "&7Jugadores: &f%server_players%"
+          - ""
+          - "&e▶ Click para conectar"
+        action: "CONNECT:lobby-5"
+        max-players: 100
+      lobby_6:
+        slot: 5
+        material: "SMOOTH_STONE"
+        name: "&f&lLobby 6"
+        lore:
+          - "&7Estado: &f%server_status%"
+          - "&7Jugadores: &f%server_players%"
+          - ""
+          - "&e▶ Click para conectar"
+        action: "CONNECT:lobby-6"
+        max-players: 100
+      lobby_7:
+        slot: 6
+        material: "SMOOTH_STONE"
+        name: "&f&lLobby 7"
+        lore:
+          - "&7Estado: &f%server_status%"
+          - "&7Jugadores: &f%server_players%"
+          - ""
+          - "&e▶ Click para conectar"
+        action: "CONNECT:lobby-7"
+        max-players: 100
+      lobby_8:
+        slot: 7
+        material: "SMOOTH_STONE"
+        name: "&f&lLobby 8"
+        lore:
+          - "&7Estado: &f%server_status%"
+          - "&7Jugadores: &f%server_players%"
+          - ""
+          - "&e▶ Click para conectar"
+        action: "CONNECT:lobby-8"
+        max-players: 100
+      lobby_9:
+        slot: 8
+        material: "SMOOTH_STONE"
+        name: "&f&lLobby 9"
+        lore:
+          - "&7Estado: &f%server_status%"
+          - "&7Jugadores: &f%server_players%"
+          - ""
+          - "&e▶ Click para conectar"
+        action: "CONNECT:lobby-9"
+        max-players: 100
+      lobby_10:
+        slot: 9
+        material: "SMOOTH_STONE"
+        name: "&f&lLobby 10"
+        lore:
+          - "&7Estado: &f%server_status%"
+          - "&7Jugadores: &f%server_players%"
+          - ""
+          - "&e▶ Click para conectar"
+        action: "CONNECT:lobby-10"
+        max-players: 100
+      lobby_11:
+        slot: 10
+        material: "SMOOTH_STONE"
+        name: "&f&lLobby 11"
+        lore:
+          - "&7Estado: &f%server_status%"
+          - "&7Jugadores: &f%server_players%"
+          - ""
+          - "&e▶ Click para conectar"
+        action: "CONNECT:lobby-11"
+        max-players: 100
+      lobby_12:
+        slot: 11
+        material: "SMOOTH_STONE"
+        name: "&f&lLobby 12"
+        lore:
+          - "&7Estado: &f%server_status%"
+          - "&7Jugadores: &f%server_players%"
+          - ""
+          - "&e▶ Click para conectar"
+        action: "CONNECT:lobby-12"
+        max-players: 100
+      lobby_13:
+        slot: 12
+        material: "SMOOTH_STONE"
+        name: "&f&lLobby 13"
+        lore:
+          - "&7Estado: &f%server_status%"
+          - "&7Jugadores: &f%server_players%"
+          - ""
+          - "&e▶ Click para conectar"
+        action: "CONNECT:lobby-13"
+        max-players: 100
+      lobby_14:
+        slot: 13
+        material: "SMOOTH_STONE"
+        name: "&f&lLobby 14"
+        lore:
+          - "&7Estado: &f%server_status%"
+          - "&7Jugadores: &f%server_players%"
+          - ""
+          - "&e▶ Click para conectar"
+        action: "CONNECT:lobby-14"
+        max-players: 100
+      lobby_15:
+        slot: 14
+        material: "SMOOTH_STONE"
+        name: "&f&lLobby 15"
+        lore:
+          - "&7Estado: &f%server_status%"
+          - "&7Jugadores: &f%server_players%"
+          - ""
+          - "&e▶ Click para conectar"
+        action: "CONNECT:lobby-15"
+        max-players: 100
+      lobby_16:
+        slot: 15
+        material: "SMOOTH_STONE"
+        name: "&f&lLobby 16"
+        lore:
+          - "&7Estado: &f%server_status%"
+          - "&7Jugadores: &f%server_players%"
+          - ""
+          - "&e▶ Click para conectar"
+        action: "CONNECT:lobby-16"
+        max-players: 100
+      lobby_17:
+        slot: 16
+        material: "SMOOTH_STONE"
+        name: "&f&lLobby 17"
+        lore:
+          - "&7Estado: &f%server_status%"
+          - "&7Jugadores: &f%server_players%"
+          - ""
+          - "&e▶ Click para conectar"
+        action: "CONNECT:lobby-17"
+        max-players: 100
+      lobby_18:
+        slot: 17
+        material: "SMOOTH_STONE"
+        name: "&f&lLobby 18"
+        lore:
+          - "&7Estado: &f%server_status%"
+          - "&7Jugadores: &f%server_players%"
+          - ""
+          - "&e▶ Click para conectar"
+        action: "CONNECT:lobby-18"
+        max-players: 100
+
   # Selector de modalidades
   servers:
     title: "&8Selector de Modalidades"

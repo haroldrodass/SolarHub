@@ -128,6 +128,7 @@ public final class SolarHub extends JavaPlugin {
         registerCommand("SetParkourStart", parkourAdmin);
         registerCommand("SetParkourCheckpoint", parkourAdmin);
         registerCommand("servers", new MenuCommands(this, "servers", "Solar.Menu.Servers"));
+        registerCommand("lobbies", new MenuCommands(this, "lobbies", "Solar.Menu.Lobbies"));
         registerCommand("cosmetics", new MenuCommands(this, "cosmetics", "Solar.Menu.Cosmetics"));
         registerCommand("profile", new MenuCommands(this, "profile", "Solar.Menu.Profile"));
     }
