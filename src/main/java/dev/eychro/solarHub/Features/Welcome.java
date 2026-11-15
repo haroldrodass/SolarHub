@@ -4,9 +4,9 @@ import dev.eychro.solarHub.SolarHub;
 import net.kyori.adventure.text.minimessage.tag.resolver.Placeholder;
 import net.kyori.adventure.title.Title;
 import org.bukkit.Bukkit;
-import org.bukkit.FireworkEffect;
 import org.bukkit.Color;
-import org.bukkit.EntityEffect;
+import org.bukkit.FireworkEffect;
+import org.bukkit.Particle;
 import org.bukkit.entity.Firework;
 import org.bukkit.entity.Player;
 import org.bukkit.event.EventHandler;
@@ -59,7 +59,15 @@ public class Welcome implements Listener {
             return;
         }
 
-        player.playEffect(EntityEffect.VILLAGER_HAPPY);
+        player.getWorld().spawnParticle(
+                Particle.HAPPY_VILLAGER,
+                player.getLocation().add(0, 1, 0),
+                10,
+                0.5,
+                0.5,
+                0.5,
+                0.1
+        );
         if (!config.getBoolean("Welcome-Effects.firework.enabled", true)) {
             return;
         }
