@@ -94,6 +94,7 @@ The compiled plugin is created in `target/` (`SolarHub-0.1-BETA.jar`). The proje
 | `/solarhub reload` | Reloads the plugin config | `Solar.Reload` |
 | `/spawn` | Teleports to the hub spawn | `Solar.Spawn` |
 | `/servers` | Opens the server selector | `Solar.Menu.Servers` |
+| `/lobbies` | Opens the lobby selector | `Solar.Menu.Lobbies` |
 | `/cosmetics` | Opens the cosmetics menu | `Solar.Menu.Cosmetics` |
 | `/profile` | Opens the player profile | `Solar.Menu.Profile` |
 

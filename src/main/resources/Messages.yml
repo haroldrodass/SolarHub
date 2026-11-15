@@ -190,6 +190,7 @@ Help:
   - " &6/spawn &7- Teleport to the main spawn."
   - " &6/hub &7- Return to the lobby."
   - " &6/servers &7- Open server selector."
+  - " &6/lobbies &7- Open lobby selector."
   - " &6/cosmetics &7- Open cosmetics menu."
   - " &6/profile &7- Open player profile."
   - " &6/fly &7- Toggle flight mode."
