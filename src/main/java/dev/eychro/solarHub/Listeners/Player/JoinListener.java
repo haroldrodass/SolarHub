@@ -46,5 +46,8 @@ public class JoinListener implements Listener {
         if (plugin.getScoreboardManager() != null) {
             plugin.getScoreboardManager().showScoreboard(e.getPlayer());
         }
+        if (plugin.getTablistManager() != null) {
+            plugin.getTablistManager().onJoin(e.getPlayer());
+        }
     }
 }

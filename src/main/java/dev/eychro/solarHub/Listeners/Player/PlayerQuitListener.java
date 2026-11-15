@@ -27,5 +27,8 @@ public class PlayerQuitListener implements Listener {
         if (plugin.getScoreboardManager() != null) {
             plugin.getScoreboardManager().removeScoreboard(player);
         }
+        if (plugin.getTablistManager() != null) {
+            plugin.getTablistManager().onQuit(player);
+        }
     }
 }
